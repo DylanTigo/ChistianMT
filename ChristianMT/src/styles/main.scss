@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto
+}
+
+.btn{
+  @apply px-9 py-[10px] text-base rounded-full
+}
+.icon{
+  @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full
+  
+}
+.icon img{
+  @apply w-4
+}
+
+
+

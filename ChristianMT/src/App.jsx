@@ -1,20 +1,13 @@
-import { Route, Routes } from 'react-router-dom'
-import Accueil from './Pages/Accueil'
-import Projects from './Pages/Projects'
-import DetailProject from './Pages/DetailProject'
+import { Outlet } from "react-router-dom";
+import Header from "./Components/Header";
 
 function App() {
   return (
     <>
-    <div> Bonjour</div>
-      <Routes>
-      <Route path="/" element={<Accueil/>}></Route>
-      <Route path='/projects' element={<Projects/>}>
-        <Route path='/projects/:id' element={<DetailProject/>}/>
-      </Route>
-    </Routes>
+      <Header />
+      <Outlet />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
