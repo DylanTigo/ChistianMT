@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Button from "../Components/Button";
 import SocialMedial from "../Components/SocialMedial";
 
@@ -14,8 +15,16 @@ import profilPhoto from "../assets/secondMTphoto.png";
 import stackList from "../Utilities/iconTab";
 import Skill from "../Components/Skill";
 import Project from "../Components/Project";
+import { useState } from "react";
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    window.location.href = `mailto: dylannoeltigomo@gmail.com?subject=Hire for work&`;
+  }
   return (
     <main>
       <section id="home" className="flex flex-col sm:flex-row gap-4">
@@ -101,10 +110,53 @@ export default function Home() {
       <section id="projects" className="bg-grey rounded-lg p-5">
         <h2 className="title text-center mb-2">Projects</h2>
         <div className="flex flex-wrap justify-center gap-3 px-5">
-            <Project/>
-            <Project/>
-            <Project/>
-            <Project/>
+          <Project />
+          <Project />
+          <Project />
+          <Project />
+        </div>
+      </section>
+      <section
+        id="contact"
+        className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center p-3"
+      >
+        <div className="w-1/2 p-8 pe-0">
+          <h2 className="font-oxygen text-3xl font-bold ">Get in touch</h2>
+          <p className=" mt-3 text-sm">
+            We believe that the best ideas are born from collaboration. Let's
+            make magic together!
+          </p>
+          <form action="" className="mt-6">
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={setName}
+              className="input"
+              id="name"
+              placeholder="Name"
+            />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={setEmail}
+              className="input mb-6 mt-2"
+              id="email"
+              placeholder="Email"
+            />
+            <Button onClick={handleSubmit}>Send me a mail</Button>
+          </form>
+        </div>
+        <div className="w-1/2 flex justify-center items-center gap-2 flex-col py-4 ">
+          <img
+            className="rounded-full w-1/2 aspect-square shrink-0"
+            src={imagePrincipale}
+            alt="photo de mael toukap"
+          />
+          <div className="px-4 py-1 rounded-full bg-grey ">
+            <SocialMedial />
+          </div>
         </div>
       </section>
     </main>

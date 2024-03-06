@@ -11,6 +11,7 @@ export default {
         'white' : '#FFFFFF',
         'orange' : '#D95F11',
         'grey' : '#F1F1F1',
+        'placeholder' : '#0d0d0db3'
       },
       fontFamily: {
         oxygen: ['Oxygen', 'sans-serif'],

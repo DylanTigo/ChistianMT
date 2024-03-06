@@ -2,29 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-  @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto
+body {
+  @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto;
+}
+input::placeholder {
+  @apply text-placeholder text-sm;
 }
 
-.btn{
-  @apply px-9 py-[10px] font-semibold rounded-full font-inter
+.btn {
+  @apply px-9 py-[10px] rounded-full font-inter;
 }
-.icon{
-  @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full
-  
+.icon {
+  @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square;
 }
-.icon img{
-  @apply w-4
+.icon img {
+  @apply w-4;
 }
-.partner{
-  @apply flex justify-around py-8 my-6
+#contact .icon {
+  @apply w-7 h-7 p-1;
 }
-.partner img{
-  @apply h-20
+.partner {
+  @apply flex justify-around py-8 my-6;
+}
+.partner img {
+  @apply h-20;
 }
 .title {
-  @apply font-bold font-inter text-xl
+  @apply font-bold font-inter text-xl;
 }
-
-
+.input {
+  @apply border-b border-black w-full max-w-96 bg-transparent py-1 px-1 outline-none; 
+}
+.input:focus-within{
+  @apply  border-b-orange border-b-2
+}
