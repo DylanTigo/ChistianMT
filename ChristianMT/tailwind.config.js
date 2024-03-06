@@ -17,8 +17,12 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       borderRadius : {
-        'xl' : '30px'
-      }
+        'xl' : '30px',
+        'lg' : '20px'
+      },
+      aspectRatio: {
+        '3/4': '3 / 4',
+      },
     },
   },
   plugins: [],

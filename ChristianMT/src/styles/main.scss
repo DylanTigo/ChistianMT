@@ -8,7 +8,7 @@ body{
 }
 
 .btn{
-  @apply px-9 py-[10px] text-base rounded-full
+  @apply px-9 py-[10px] font-semibold rounded-full font-inter
 }
 .icon{
   @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full
@@ -17,6 +17,14 @@ body{
 .icon img{
   @apply w-4
 }
-
+.partner{
+  @apply flex justify-around py-8 my-6
+}
+.partner img{
+  @apply h-20
+}
+.title {
+  @apply font-bold font-inter text-xl
+}
 
 
