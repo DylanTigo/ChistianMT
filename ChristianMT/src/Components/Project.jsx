@@ -6,7 +6,7 @@ import icon from "../assets/icons/downIcon.svg";
 
 export default function Project({ project }) {
   return (
-    <Link to={"/projects/:id"} className="w-[48%] relative">
+    <Link to={"/projects/:id"} className="w-full sm:w-[48%] relative">
       <div className="absolute top-4 right-4 rotate-[-135deg] w-[clamp(35px,12%,45px)] h-[clamp(35px,12%,45px)] rounded-full bg-white flex justify-center items-center">
         <img src={icon} alt=" arrow ton top right" className=" h-4"/>
       </div>

@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html {
+  @apply text-sm sm:text-base;
+}
 body {
   @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto;
 }
@@ -10,7 +12,10 @@ input::placeholder {
 }
 
 .btn {
-  @apply px-9 py-[10px] rounded-full font-inter;
+  @apply px-9 py-3 rounded-full font-inter text-nowrap w-full xm:w-fit;
+}
+#home .btn {
+  @apply px-6 py-3 sm:px-9 sm:py-3;
 }
 .icon {
   @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square;
@@ -25,14 +30,14 @@ input::placeholder {
   @apply flex justify-around py-8 my-6;
 }
 .partner img {
-  @apply h-20;
+  @apply h-14 xm:h-16 sm:h-20;
 }
 .title {
-  @apply font-bold font-inter text-xl;
+  @apply font-bold font-inter text-xl text-center sm:text-start mb-3;
 }
 .input {
-  @apply border-b border-black w-full max-w-96 bg-transparent py-1 px-1 outline-none; 
+  @apply border-b border-black w-full max-w-none sm:max-w-96 bg-transparent py-1 px-1 outline-none;
 }
-.input:focus-within{
-  @apply  border-b-orange border-b-2
+.input:focus-within {
+  @apply border-b-orange border-b-2;
 }
