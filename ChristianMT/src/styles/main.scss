@@ -41,3 +41,9 @@ input::placeholder {
 .input:focus-within {
   @apply border-b-orange border-b-2;
 }
+.menuBtn {
+  @apply w-14 h-14 rounded-full bg-black absolute right-6;
+}
+.stick {
+  @apply w-5 h-[1px] bg-white block absolute left-1/2 -translate-x-1/2 ;
+}

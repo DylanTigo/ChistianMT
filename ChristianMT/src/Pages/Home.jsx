@@ -73,7 +73,7 @@ export default function Home() {
             className=" object-cover object-center h-full"
           />
           <div className=" absolute top-6 right-6">
-            <SocialMedial className=" flex-col" />
+            <SocialMedial className="flex-col" />
           </div>
         </div>
       </section>
