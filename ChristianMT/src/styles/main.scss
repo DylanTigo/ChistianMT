@@ -41,9 +41,34 @@ input::placeholder {
 .input:focus-within {
   @apply border-b-orange border-b-2;
 }
+
+.menu {
+  @apply fixed top-[4vw] right-[4vw] flex flex-col bg-grey aspect-square rounded-full  border shadow-md p-5 sm:p-7 z-10 transition origin-[calc(100%-50px)_calc(50px)] scale-0;
+}
+.menu.active {
+  @apply scale-100 rounded-lg aspect-auto overflow-hidden;
+}
 .menuBtn {
-  @apply w-14 h-14 rounded-full bg-black absolute right-6;
+  @apply w-14 h-14 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20 transition;
+}
+.stickContainer {
+  @apply absolute w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none;
 }
 .stick {
-  @apply w-5 h-[1px] bg-white block absolute left-1/2 -translate-x-1/2 ;
+  @apply w-full h-[1px] bg-white absolute left-1/2 -translate-x-1/2 transition;
+}
+.menuBtn.active .stick.active:first-child {
+  @apply rotate-45 translate-y-0;
+}
+.menuBtn.active .stick.active:last-child {
+  @apply -rotate-45 translate-y-0;
+}
+.fullBgBlack {
+  @apply w-[200vw] h-svh fixed top-0 -left-full z-10 bg-black opacity-0 invisible transition;
+}
+.fullBgBlack.active {
+  @apply opacity-70 visible;
+}
+section {
+  @apply my-8;
 }

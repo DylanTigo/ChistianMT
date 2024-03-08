@@ -7,7 +7,7 @@ import github from "../assets/icons/github.svg";
 
 export default function SocialMedial({className}) {
   return (
-    <div className={`flex w-fit ${className} justify-center items-center gap-2 ` }>
+    <div className={`flex w-fit ${className} justify-center items-center gap-2` }>
       <div className="icon">
         <img src={whatsapp} alt="logo whatsapp" />
       </div>

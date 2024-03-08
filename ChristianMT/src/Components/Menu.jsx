@@ -1,15 +1,11 @@
+/* eslint-disable react/prop-types */
 import SocialMedial from "./SocialMedial";
 import { Link } from "react-router-dom";
 
-export default function Menu() {
+export default function Menu({refMenuContainer}) {
   return (
     <>
-      <div className=" fixed top-8 right-8 flex flex-col bg-grey rounded-lg shadow-md p-7 z-10">
-        <button className="menuBtn">
-          <span className="stick translate-y-1"></span>
-          <span className="stick -translate-y-1/2"></span>
-          <span className="stick -translate-y-1"></span>
-        </button>
+      <div className="menu" ref={refMenuContainer}>
         <nav className="flex justify-center items-start flex-col gap-2 md:gap-5 font-bold text-xl mt-16 ">
           <Link to={"/"}>Home</Link>
           <Link to={"/#about"}>About</Link>
