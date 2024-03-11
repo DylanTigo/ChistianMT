@@ -15,11 +15,15 @@ import profilPhoto from "../assets/secondMTphoto.png";
 import stackList from "../Utilities/iconTab";
 import Skill from "../Components/Skill";
 import Project from "../Components/Project";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
 
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const home = useRef(null);
+
+  useGSAP(() => {});
 
   function melangeTableau(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -38,24 +42,25 @@ export default function Home() {
       <section
         id="home"
         className="flex flex-col-reverse sm:flex-row gap-4 mt-0"
+        ref={home}
       >
         <div className=" flex flex-col justify-between md:w-3/5 md:min-w-[540px] bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover p-7 sm:p-12 rounded-xl relative">
           <div className="">
-            <h1 className=" font-oxygen text-2xl sm:text-4xl font-bold">
+            <h1 className=" font-oxygen text-2xl sm:text-4xl font-bold autoAlpha">
               Hello I’m Mael Toukap <br /> FullStack and Mobile <br />{" "}
               Develloper
             </h1>
-            <p className="w-9/10 sm:w-5/6 mt-8">
+            <p className="w-9/10 sm:w-5/6 mt-8 autoAlpha">
               Lorem ipsum dolor sit amet consectetur. Purus tellus pretium
               pulvinar in ullamcorper ornare enim. Mauris rutrum dolor ut.
             </p>
           </div>
           <div className="flex justify-between items-center mt-4">
-            <div className="flex gap-2 mr-2">
+            <div className="flex gap-2 mr-2 autoAlpha">
               <Button type="primary">Contact me</Button>
               <Button type="secondary">Download CV</Button>
             </div>
-            <div className="absolute top-4 right-4 xm:relative xm:top-0 xm:right-0 max-w-12 xm:max-w-none xm:min-w-14 bg-white rounded-full">
+            <div className=" autoAlpha absolute top-4 right-4 xm:relative xm:top-0 xm:right-0 max-w-12 xm:max-w-none xm:min-w-14 bg-white rounded-full">
               <img
                 src={scrollround}
                 alt="scrolldown circulaire"
@@ -69,11 +74,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="w-full sm:w-2/5 max-h-80 sm:max-h-none h-auto rounded-xl overflow-hidden relative">
+        <div className="w-full sm:w-2/5 max-h-96 sm:max-h-none h-auto rounded-xl overflow-hidden relative">
           <img
             src={imagePrincipale}
             alt="photo de mael toukap"
-            className=" object-cover object-center h-full"
+            className=" object-cover object-center h-full autoAlpha"
           />
           <div className=" absolute top-6 right-6">
             <SocialMedial className="flex-col" />
@@ -85,12 +90,12 @@ export default function Home() {
         id="skills"
         className="rounded-xl my-8 overflow-hidden text-xs sm:text-base"
       >
-        <ul className="flex gap-3">
+        <ul className="flex gap-3 autoAlpha">
           {melangeTableau(stackList).map((skill, index) => (
             <Skill key={index} img={skill} />
           ))}
         </ul>
-        <ul className="flex gap-3 mt-3 -translate-x-80">
+        <ul className="flex gap-3 mt-3 autoAlpha">
           {melangeTableau(stackList).map((skill, index) => (
             <Skill key={index} img={skill} />
           ))}
