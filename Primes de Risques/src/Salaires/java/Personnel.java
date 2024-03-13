@@ -8,6 +8,7 @@ public class Personnel {
         collectionEmploye = new ArrayList<>();
     }
 
+
     public void ajouterEmploye(Employe employe){
         collectionEmploye.add(employe);
     }

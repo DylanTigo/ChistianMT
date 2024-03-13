@@ -1,0 +1,10 @@
+D:\Projet\2024\Mars\Exercice3\bin\Debug\Exercice3.exe.config
+D:\Projet\2024\Mars\Exercice3\bin\Debug\Exercice3.exe
+D:\Projet\2024\Mars\Exercice3\bin\Debug\Exercice3.pdb
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.csproj.AssemblyReference.cache
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.Form1.resources
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.Properties.Resources.resources
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.csproj.GenerateResource.cache
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.csproj.CoreCompileInputs.cache
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.exe
+D:\Projet\2024\Mars\Exercice3\obj\Debug\Exercice3.pdb
