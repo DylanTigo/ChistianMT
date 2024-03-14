@@ -50,7 +50,6 @@ function App() {
     TimeLine.to(menuBtn.current, {
       scale: 1,
       opacity: 100,
-      duration: 5,
       scrollTrigger: {
         trigger: menuBtn.current,
         // markers: true,

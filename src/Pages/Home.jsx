@@ -24,7 +24,8 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const home = useRef(null);
   const btnContainer = useRef(null)
-  const imagePrincipale = useRef(null)
+  const imgPrincipale = useRef(null)
+  const textToDown = useRef(null)
 
   // const { contextSafe } = useGSAP({ scope: home.current })
   useGSAP(() => {
@@ -33,7 +34,10 @@ export default function Home() {
     .to("h1",{ y:0, opacity: 100, visibility: "visible"})
     .to("p",{ y:0, opacity: 100, visibility: "visible"})
     .to(btnContainer.current ,{ y:0, opacity: 100, visibility: "visible"})
-    .to(imagePrincipale.current ,{ y:0, opacity: 100, visibility: "visible"})
+    .to(".callToScroll" ,{ scale: 1,})
+    .to(textToDown.current ,{ rotate: 360, repeat: -1, ease: "none", duration: 10, yoyo: true})
+    .to(imgPrincipale.current ,{ y:0, opacity: 100, visibility: "visible"}, "2")
+    .to(".arrow", { yoyo: true, repeat: -1})
   }, {scope: home});
 
   function melangeTableau(array) {
@@ -67,27 +71,28 @@ export default function Home() {
             </p>
           </div>
           <div className="flex justify-between items-center mt-4">
-            <div ref={btnContainer} className="flex gap-2 mr-2 autoAlpha">
+            <div ref={btnContainer} className="btnContainer flex gap-2 mr-2 autoAlpha">
               <Button type="primary">Contact me</Button>
               <Button type="secondary">Download CV</Button>
             </div>
-            <div className=" autoAlpha absolute top-4 right-4 xm:relative xm:top-0 xm:right-0 max-w-12 xm:max-w-none xm:min-w-14 bg-white rounded-full">
+            <div className="callToScroll scale-0 absolute top-4 right-4 xm:relative xm:top-0 xm:right-0 max-w-12 xm:max-w-none xm:min-w-14 bg-white rounded-full">
               <img
+                ref = {textToDown}
                 src={scrollround}
                 alt="scrolldown circulaire"
-                className="w-24"
+                className="w-24 rotate-0"
               />
               <img
                 src={arrow}
                 alt="icone de fleche vers le bas"
-                className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/4"
+                className="arrow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/5"
               />
             </div>
           </div>
         </div>
         <div className="w-full sm:w-2/5 max-h-96 sm:max-h-none h-auto rounded-xl overflow-hidden relative">
           <img
-          ref={imagePrincipale}
+          ref={imgPrincipale}
             src={imagePrincipale}
             alt="photo de mael toukap"
             className=" object-cover object-center h-full autoAlpha"
