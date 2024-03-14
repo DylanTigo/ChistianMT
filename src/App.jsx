@@ -4,12 +4,14 @@ import Menu from "./Components/Menu";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import scrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(scrollTrigger);
 
 function App() {
   const menuBtn = useRef(null);
   const bgBlack = useRef(null);
   const menuContainer = useRef(null);
-  const loaderContainer = useRef();
+  // const loaderContainer = useRef();
 
   function showMenu() {
     menuBtn.current.classList.toggle("active");
@@ -17,7 +19,7 @@ function App() {
     console.log(menuContainer.current.classList.toggle("active"));
   }
 
-  const { contextSafe } = useGSAP({ scope: loaderContainer.current });
+  const { contextSafe } = useGSAP({ scope: "body" });
 
   const handleLoading = contextSafe(() => {
     const timeLoading = gsap.timeline();
@@ -43,16 +45,32 @@ function App() {
   });
   window.addEventListener("load", handleLoading);
 
+  useGSAP(() => {
+    const TimeLine = gsap.timeline();
+    TimeLine.to(menuBtn.current, {
+      scale: 1,
+      opacity: 100,
+      duration: 5,
+      scrollTrigger: {
+        trigger: menuBtn.current,
+        // markers: true,
+        pin: true,
+        scrub: true,
+        start: "50 +=40",
+      },
+    });
+  });
+
   return (
     <>
-      <div
+      {/* <div
         className="loaderContainer fixed left-0 top-0 flex justify-center items-center w-svw h-svh z-40 bg-white"
         ref={loaderContainer}
       >
         <div className="loader w-24 sm:w-36 h-24 sm:h-36 rounded-full bg-black opacity-4"></div>
-      </div>
+      </div> */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10">
-        <button className="menuBtn autoAlpha" ref={menuBtn} onClick={showMenu}>
+        <button ref={menuBtn} className="menuBtn scale-0" onClick={showMenu}>
           <div className="stickContainer">
             <span className="stick translate-y-[2px] active"></span>
             <span className="stick translate-y-[-2px] active"></span>

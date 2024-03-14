@@ -24,7 +24,7 @@
 
 @layer utilities{
   .autoAlpha{
-    @apply opacity-0 invisible
+    @apply opacity-0 invisible translate-y-6
   }
   .autoAlpha-1{
     @apply opacity-100 visible
@@ -68,7 +68,7 @@
     @apply scale-100 rounded-lg aspect-auto overflow-hidden;
   }
   .menuBtn {
-    @apply w-14 h-14 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20 transition;
+    @apply w-14 h-14 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20;
   }
   .stickContainer {
     @apply absolute w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none;
