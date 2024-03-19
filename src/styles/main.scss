@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-
+@layer base {
   html {
     @apply text-sm sm:text-base;
   }
@@ -19,22 +18,24 @@
   section {
     @apply my-8;
   }
-  
 }
 
-@layer utilities{
-  .autoAlpha{
-    @apply opacity-0 invisible translate-y-6
-  }
-  .autoAlpha-1{
-    @apply opacity-100 visible
+@layer utilities {
+  nav a.link {
+    @apply text-black/75 hover:text-black;
   }
 }
 
-@layer components{
-
+@layer components {
   .btn {
-    @apply px-9 py-3 rounded-full font-inter text-nowrap w-full xm:w-fit;
+    @apply px-9 py-3 rounded-full font-inter text-nowrap w-full xm:w-fit overflow-hidden;
+  }
+  .btn span {
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn:hover span {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
   #home .btn {
     @apply px-6 py-3 sm:px-9 sm:py-3;
@@ -60,7 +61,7 @@
   .input {
     @apply border-b border-black w-full max-w-none sm:max-w-96 bg-transparent py-1 px-1 outline-none;
   }
-  
+
   .menu {
     @apply fixed top-[4vw] right-[4vw] flex flex-col bg-grey aspect-square rounded-full  border shadow-md p-5 sm:p-7 z-10 transition origin-[calc(100%-50px)_calc(50px)] scale-0;
   }
