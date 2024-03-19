@@ -9,7 +9,7 @@ export default function useScrollPositon() {
   }, []);
 
   function handleScroll() {
-    if (window.innerHeight / 3 < document.documentElement.scrollTop) {
+    if (window.innerHeight / 4 < document.documentElement.scrollTop) {
       setRightPosition(true);
     } else {
       setRightPosition(false);

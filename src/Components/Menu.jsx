@@ -6,7 +6,7 @@ export default function Menu({ refMenuContainer }) {
   return (
     <>
       <div className="menu visible" ref={refMenuContainer}>
-        <nav className="flex justify-center items-start flex-col gap-2 md:gap-5 font-bold text-xl mt-16 ">
+        <nav className="flex justify-center items-start flex-col gap-2 md:gap-5 font-black text-xl mt-16 ">
           <Link to={"/"} className="link">
             Home
           </Link>

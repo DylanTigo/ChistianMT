@@ -23,7 +23,7 @@ export default function Button({ children, type }) {
         className="btn bg-white text-black relative"
         type="button"
       >
-        <span className="hoverElt absolute top-1/2 left-1/2 -translate-x-1/2 w-full h-auto aspect-square rounded-full bg-black text-white flex justify-center items-center opacity-0 transition-transform">
+        <span className="hoverElt absolute top-1/2 left-1/2 -translate-x-1/2 w-full h-auto aspect-square rounded-full bg-black/50 text-white flex justify-center items-center opacity-0 transition-transform">
           {children}
         </span>
         {children}
