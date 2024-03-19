@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Menu({ refMenuContainer }) {
   return (
     <>
-      <div className="menu" ref={refMenuContainer}>
+      <div className="menu visible" ref={refMenuContainer}>
         <nav className="flex justify-center items-start flex-col gap-2 md:gap-5 font-bold text-xl mt-16 ">
           <Link to={"/"} className="link">
             Home
@@ -20,7 +20,7 @@ export default function Menu({ refMenuContainer }) {
             Contact
           </Link>
         </nav>
-        <SocialMedial className={"mt-10"} />
+        <SocialMedial className={"mt-10 visible"} />
       </div>
     </>
   );

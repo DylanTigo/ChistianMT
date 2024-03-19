@@ -1,21 +1,6 @@
 /* eslint-disable react/prop-types */
 
 export default function Button({ children, type }) {
-  const btn = document.querySelector(".btn");
-  // const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  // useEffect(() => {
-  //   document.addEventListener("mousemove", handleMouseMove);
-  // }, []);
-  // function handleMouseMove(e) {
-  //   const { clientX, clientY } = e;
-  //   setMousePos({ x: clientX, y: clientY });
-  // }
-  // console.log(mousePos);
-  // useGSAP(() => {
-  //   btn.addEventListener("mouseenter", )
-
-  // })
 
   if (!type || type === "primary") {
     return (
