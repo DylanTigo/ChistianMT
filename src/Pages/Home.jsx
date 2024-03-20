@@ -16,7 +16,11 @@ import profilPhoto from "../assets/secondMTphoto.png";
 import stackList from "../Utilities/iconTab";
 import Skill from "../Components/Skill";
 import Project from "../Components/Project";
-import { useRef, useState } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useScroll, useTransform } from "framer-motion";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -38,6 +42,34 @@ export default function Home() {
     e.preventDefault();
     window.location.href = `mailto: dylannoeltigomo@gmail.com?subject=Hire for work&`;
   }
+
+  const skills = useRef(null);
+  
+  // useGSAP(
+  //   () => {
+  //     gsap.registerEffect(ScrollTrigger);
+  //     // gsap.to("#skills .listContainer", {
+  //     //   x: "-100%",
+  //     //   duration: 20,
+  //     //   delay: 1,
+  //     //   ease: "none",
+  //     //   repeat: -1,
+  //     // });
+  //     gsap.to("#skills .listContainer", {
+  //       x: "-100%",
+  //       duration: 20,
+  //       delay: 1,
+  //       ease: "none",
+  //       repeat: -1,
+  //       scrollTrigger: {
+  //         trigger: "#skills",
+  //         scrub: true,
+  //       },
+  //     });
+  //   },
+  //   { scope: skills.current }
+  // );
+  const {scrollProgress} = useScroll()
   return (
     <main>
       <section
@@ -90,19 +122,34 @@ export default function Home() {
       </section>
 
       <section
+        ref={skills}
         id="skills"
-        className="rounded-xl my-8 overflow-hidden text-xs sm:text-base"
+        className="rounded-xl my-8 text-xs sm:text-base"
       >
-        <ul className="flex gap-3 ">
-          {melangeTableau(stackList).map((skill, index) => (
-            <Skill key={index} img={skill} />
-          ))}
-        </ul>
-        <ul className="flex gap-3 mt-3 ">
-          {melangeTableau(stackList).map((skill, index) => (
-            <Skill key={index} img={skill} />
-          ))}
-        </ul>
+        <div className="flex overflow-hidden rounded-xl">
+          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
+            {melangeTableau(stackList).map((skill, index) => (
+              <Skill key={index} img={skill} />
+            ))}
+          </ul>
+          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
+            {melangeTableau(stackList).map((skill, index) => (
+              <Skill key={index} img={skill} />
+            ))}
+          </ul>
+        </div>
+        <div className="flex mt-3 overflow-hidden rounded-xl ">
+          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
+            {melangeTableau(stackList).map((skill, index) => (
+              <Skill key={index} img={skill} />
+            ))}
+          </ul>
+          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
+            {melangeTableau(stackList).map((skill, index) => (
+              <Skill key={index} img={skill} />
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section id="about" className="bg-grey rounded-xl p-7 sm:p-11">
