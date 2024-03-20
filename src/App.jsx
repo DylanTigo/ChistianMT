@@ -26,7 +26,7 @@ function App() {
       gsap.to(menuBtn.current, {
         scale: 1,
         visibility: "visible",
-        ease: "bounce.Out",
+        ease: "back.out",
         duration: 0.3,
       });
     } else {
@@ -34,8 +34,8 @@ function App() {
       gsap.to(menuBtn.current, {
         scale: 0,
         visibility: "hidden",
-        ease: "bounce.in",
-        duration: 0.3,
+        ease: "power3.out",
+        duration: 0.5,
       });
     }
   }, [rightPosition]);
@@ -48,6 +48,7 @@ function App() {
           className="menuBtn scale-50 invisible"
           onClick={showMenu}
         >
+          <span className=""></span>
           <div className="stickContainer">
             <span className="stick translate-y-[2px] active"></span>
             <span className="stick translate-y-[-2px] active"></span>
