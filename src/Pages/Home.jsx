@@ -19,8 +19,7 @@ import Project from "../Components/Project";
 import { useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +33,7 @@ export default function Home() {
   const aboutSection = useRef(null);
   const projectsSection = useRef(null);
   const contactSection = useRef(null);
-  const partner = useRef(null)
+  const partner = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,7 +63,7 @@ export default function Home() {
           start: "top 80%",
           toggleActions: "play none none reset",
           onEnter: config.onEnter,
-        }
+        },
       });
     },
   });
@@ -88,22 +87,35 @@ export default function Home() {
       //Animation de la section about
       gsap.effects.sectionAnimation(projectsSection.current);
 
-      //Animation de la section about
-      
       //Animation de la section partner
       ScrollTrigger.create({
         trigger: partner.current,
         start: "",
-        onEnter: () => {gsap.from(".partner img", {
-          y: 50,
-          stagger: .1,
-          start: "top 80%",
+        onEnter: () => {
+          gsap.from(".partner img", {
+            y: 50,
+            stagger: 0.1,
+            start: "top 80%",
+            toggleActions: "play none none reset",
+          });
+        },
+      });
+
+      //Animation de la section contact
+      gsap.to(contactSection.current, {
+        duration: 1,
+        opacity: 1,
+        y: 0,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: contactSection.current,
+          start: "-50% 80%",
           toggleActions: "play none none reset",
-        })
-        gsap.effects.sectionAnimation(contactSection.current);}
-      })
+          onEnter: () => {},
+        },
+      });
     },
-    { scope: document.body}
+    { scope: document.body }
   );
 
   return (
