@@ -150,8 +150,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="bg-grey rounded-lg px-2 py-3 sm:p-5">
-        <h2 className="title text-center mb-2 ml-0 sm:ml-12">Projects</h2>
+      <section id="projects" className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7">
+        <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
         <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
           <Project />
           <Project />
