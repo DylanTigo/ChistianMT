@@ -37,6 +37,9 @@ function App() {
             ease: "power3.out",
             duration: 0.2,
           });
+          menuBtn.current.classList.remove("active");
+          bgBlack.current.classList.remove("active");
+          menuContainer.current.classList.remove("active");
         },
       },
     });

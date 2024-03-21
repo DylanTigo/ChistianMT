@@ -13,7 +13,7 @@
     @apply text-sm sm:text-base;
   }
   body {
-    @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto ;
+    @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto;
   }
   input::placeholder {
     @apply text-placeholder text-sm;
@@ -27,8 +27,11 @@
 }
 
 @layer utilities {
+  nav {
+    @apply hover:text-black/60 transition-all;
+  }
   nav a.link {
-    @apply text-black/60 hover:text-black;
+    @apply w-full hover:text-black;
   }
   .hoverElt {
     transition: transform 0.2s;
@@ -71,6 +74,9 @@
   .menu {
     @apply fixed top-[4vw] right-[4vw] flex flex-col bg-grey aspect-square rounded-full  border shadow-md p-5 sm:p-7 z-10 transition origin-[calc(100%-50px)_calc(50px)] scale-0;
   }
+  .menu nav a {
+    @apply mx-2;
+  }
   .menu.active {
     @apply scale-100 rounded-lg aspect-auto overflow-hidden;
   }
@@ -78,6 +84,9 @@
     @apply w-16 h-16 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20;
   }
   .menuBtn.active {
+    @apply bg-transparent;
+  }
+  .menuBtn.active span {
     @apply bg-transparent;
   }
   .menuBtn.active {
