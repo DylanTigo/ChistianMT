@@ -19,6 +19,9 @@ import Project from "../Components/Project";
 import { useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -27,20 +30,50 @@ export default function Home() {
   const btnContainer = useRef(null);
   const imgPrincipale = useRef(null);
   const textToDown = useRef(null);
-
+  const aboutSection = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();
     window.location.href = `mailto: dylannoeltigomo@gmail.com?subject=Hire for work&`;
   }
 
+  //Animation de la section skils avec FramerMotion
   const skills = useRef(null);
   const { scrollYProgress } = useScroll({
     target: skills,
     offset: ["start end", "end start"],
   });
-  const x1 = useTransform(scrollYProgress, [0, 1], [0, 250]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [0, -250]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, 350]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [0, -350]);
+
+  //animation de la page avec Gsap
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.to(aboutSection.current, {
+        duration: 1,
+        opacity: 1,
+        y: 0,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top bottom",
+          toggleActions: "play none none reset",
+          onEnter: () => {
+            gsap.from(".about p", {
+              opacity: 0,
+              stagger: 0.1,
+              duration: 1,
+              delay: 0.1,
+              ease: "expo.out",
+            });
+          },
+        },
+      });
+    },
+    { scope: document.body }
+  );
 
   return (
     <main>
@@ -122,26 +155,30 @@ export default function Home() {
         </motion.ul>
       </section>
 
-      <section id="about" className="bg-grey rounded-xl p-7 sm:p-11">
+      <section
+        ref={aboutSection}
+        id="about"
+        className="bg-grey rounded-xl p-7 sm:p-11 opacity-0 translate-y-32"
+      >
         <h2 className="title sm:ml-6">About me</h2>
-        <div className="flex justify-center items-center w-fit gap-8 sm:gap-12 w-100 flex-col  lg:flex-row">
+        <div className="flex justify-center items-center w-full gap-8 sm:gap-12 w-100 flex-col sm:flex-row">
           <img
-            className="rounded-full w-60 aspect-square shrink-0"
+            className="rounded-full w-60 aspect-square min-w-52"
             src={profilPhoto}
             alt="photo de mael toukap"
           />
-          <div className="grow mx-auto w-100 ">
-            <p className=" lg:max-w-xl mx-auto indent-10">
+          <div className="about grow mx-auto w-100 max-w-none sm:max-h-60 overflow-y-auto">
+            <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
               From a young age, I’ve always had a sense of motivation and
               passion driving me forward.
             </p>
-            <p className=" lg:max-w-xl mx-auto mt-2 indent-10">
+            <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
               Whether it’s exploring unique opportunities, learning additional
               skills, or meeting new people, I bring these values to every
               experience throughout my life on a personal and professional
               level.
             </p>
-            <p className=" lg:max-w-xl mx-auto mt-2 indent-10">
+            <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
               Lover of innovation and everything related to generate new
               knowledge. Face problems with a smile and solve them as soon as
               possible. Very calculated about the time I spend and work I do.
@@ -150,7 +187,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7">
+      <section
+        id="projects"
+        className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7"
+      >
         <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
         <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
           <Project />

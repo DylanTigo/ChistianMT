@@ -15,6 +15,7 @@ function App() {
     bgBlack.current.classList.toggle("active");
     menuContainer.current.classList.toggle("active");
   }
+
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(menuBtn.current, {
@@ -26,7 +27,6 @@ function App() {
           gsap.to(menuBtn.current, {
             scale: 1,
             visibility: "visible",
-            opacity: 1,
             ease: "power3.out",
             duration: 0.2,
           });
@@ -60,7 +60,7 @@ function App() {
         <Menu refMenuContainer={menuContainer} />
       </div>
       <Header />
-      <Outlet timeline={false} />
+      <Outlet />
     </>
   );
 }
