@@ -7,6 +7,6 @@ import mySql from "../assets/Techno/mySql.png"
 import node from "../assets/Techno/node.png"
 import firebase from "../assets/Techno/firebase.png"
 
-const techStack = [flutter, flask, firebase, dart, django, laravel, mySql, node]
+const techStack = [flask, firebase, dart, flutter, django, laravel, mySql, node]
 
 export default techStack

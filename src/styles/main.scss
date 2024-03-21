@@ -25,12 +25,11 @@
     @apply text-black/60 hover:text-black;
   }
   .hoverElt {
-    transition: transform 0.2s, opacity 0.2s;
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 w-full h-auto aspect-square rounded-full  flex justify-center items-center opacity-0 transition-transform;
+    transition: transform 0.2s;
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-14 w-[110%] h-auto aspect-square rounded-full flex justify-center items-center;
   }
   .elt:hover .hoverElt {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+    @apply -translate-x-1/2 -translate-y-1/2;
   }
 }
 
@@ -70,13 +69,10 @@
     @apply scale-100 rounded-lg aspect-auto overflow-hidden;
   }
   .menuBtn {
-    @apply w-14 h-14 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20;
+    @apply w-16 h-16 rounded-full bg-black absolute top-[calc(4vw+1rem)] right-[calc(4vw+1rem)] z-20;
   }
   .menuBtn.active {
     @apply bg-transparent;
-  }
-  .menuBtn:hover {
-    @apply bg-red-500 transition-colors;
   }
   .menuBtn.active {
     @apply bg-white transition-colors;

@@ -21,7 +21,7 @@ function App() {
       scrollTrigger: {
         trigger: document.documentElement,
         start: 0,
-        end: window.innerHeight -window.innerHeight/2,
+        end: window.innerHeight - window.innerHeight / 2,
         onLeave: () => {
           gsap.to(menuBtn.current, {
             scale: 1,
@@ -42,12 +42,15 @@ function App() {
     });
   });
 
-
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">
-        <button ref={menuBtn} className="menuBtn scale-0 visible" onClick={showMenu}>
-          <span className=""></span>
+        <button
+          ref={menuBtn}
+          className="menuBtn scale-0 visible elt overflow-hidden"
+          onClick={showMenu}
+        >
+          <span className="hoverElt bg-red-500"></span>
           <div className="stickContainer">
             <span className="stick translate-y-[2px] active"></span>
             <span className="stick translate-y-[-2px] active"></span>

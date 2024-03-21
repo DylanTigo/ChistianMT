@@ -16,11 +16,9 @@ import profilPhoto from "../assets/secondMTphoto.png";
 import stackList from "../Utilities/iconTab";
 import Skill from "../Components/Skill";
 import Project from "../Components/Project";
-import { useRef, useState, useLayoutEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -30,13 +28,6 @@ export default function Home() {
   const imgPrincipale = useRef(null);
   const textToDown = useRef(null);
 
-  function melangeTableau(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,32 +35,13 @@ export default function Home() {
   }
 
   const skills = useRef(null);
-  
-  // useGSAP(
-  //   () => {
-  //     gsap.registerEffect(ScrollTrigger);
-  //     // gsap.to("#skills .listContainer", {
-  //     //   x: "-100%",
-  //     //   duration: 20,
-  //     //   delay: 1,
-  //     //   ease: "none",
-  //     //   repeat: -1,
-  //     // });
-  //     gsap.to("#skills .listContainer", {
-  //       x: "-100%",
-  //       duration: 20,
-  //       delay: 1,
-  //       ease: "none",
-  //       repeat: -1,
-  //       scrollTrigger: {
-  //         trigger: "#skills",
-  //         scrub: true,
-  //       },
-  //     });
-  //   },
-  //   { scope: skills.current }
-  // );
-  const {scrollProgress} = useScroll()
+  const { scrollYProgress } = useScroll({
+    target: skills,
+    offset: ["start end", "end start"],
+  });
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, 250]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [0, -250]);
+
   return (
     <main>
       <section
@@ -124,32 +96,30 @@ export default function Home() {
       <section
         ref={skills}
         id="skills"
-        className="rounded-xl my-8 text-xs sm:text-base"
+        className=" rounded-lg my-8 text-xs sm:text-base overflow-hidden flex flex-col"
       >
-        <div className="flex overflow-hidden rounded-xl">
-          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
-            {melangeTableau(stackList).map((skill, index) => (
-              <Skill key={index} img={skill} />
-            ))}
-          </ul>
-          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
-            {melangeTableau(stackList).map((skill, index) => (
-              <Skill key={index} img={skill} />
-            ))}
-          </ul>
-        </div>
-        <div className="flex mt-3 overflow-hidden rounded-xl ">
-          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
-            {melangeTableau(stackList).map((skill, index) => (
-              <Skill key={index} img={skill} />
-            ))}
-          </ul>
-          <ul className="flex gap-3 mr-3 w-max shrink-0 listContainer">
-            {melangeTableau(stackList).map((skill, index) => (
-              <Skill key={index} img={skill} />
-            ))}
-          </ul>
-        </div>
+        <motion.ul
+          style={{ x: x1 }}
+          className="flex gap-3 mr-3 w-max shrink-0 -translate-x-full listContainer1 self-end"
+        >
+          {stackList.map((skill, index) => (
+            <Skill key={index} img={skill} />
+          ))}
+          {stackList.map((skill, index) => (
+            <Skill key={index} img={skill} />
+          ))}
+        </motion.ul>
+        <motion.ul
+          style={{ x: x2 }}
+          className="flex gap-3 mr-3 w-max shrink-0 listContainer2 mt-3 justify-items-start"
+        >
+          {stackList.map((skill, index) => (
+            <Skill key={index} img={skill} />
+          ))}
+          {stackList.map((skill, index) => (
+            <Skill key={index} img={skill} />
+          ))}
+        </motion.ul>
       </section>
 
       <section id="about" className="bg-grey rounded-xl p-7 sm:p-11">
@@ -165,13 +135,13 @@ export default function Home() {
               From a young age, I’ve always had a sense of motivation and
               passion driving me forward.
             </p>
-            <p className=" lg:max-w-xl mx-auto indent-10">
+            <p className=" lg:max-w-xl mx-auto mt-2 indent-10">
               Whether it’s exploring unique opportunities, learning additional
               skills, or meeting new people, I bring these values to every
               experience throughout my life on a personal and professional
               level.
             </p>
-            <p className=" lg:max-w-xl mx-auto indent-10">
+            <p className=" lg:max-w-xl mx-auto mt-2 indent-10">
               Lover of innovation and everything related to generate new
               knowledge. Face problems with a smile and solve them as soon as
               possible. Very calculated about the time I spend and work I do.
