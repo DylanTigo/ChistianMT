@@ -34,6 +34,7 @@ export default function Home() {
   const aboutSection = useRef(null);
   const projectsSection = useRef(null);
   const contactSection = useRef(null);
+  const partner = useRef(null)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -71,6 +72,7 @@ export default function Home() {
   //animation de la page avec Gsap
   useGSAP(
     () => {
+      //Animation de la section about
       gsap.effects.sectionAnimation(aboutSection.current, {
         onEnter: () => {
           gsap.from(".about p", {
@@ -82,8 +84,24 @@ export default function Home() {
           });
         },
       });
+
+      //Animation de la section about
       gsap.effects.sectionAnimation(projectsSection.current);
-      gsap.effects.sectionAnimation(contactSection.current);
+
+      //Animation de la section about
+      
+      //Animation de la section partner
+      ScrollTrigger.create({
+        trigger: partner.current,
+        start: "",
+        onEnter: () => {gsap.from(".partner img", {
+          y: 50,
+          stagger: .1,
+          start: "top 80%",
+          toggleActions: "play none none reset",
+        })
+        gsap.effects.sectionAnimation(contactSection.current);}
+      })
     },
     { scope: document.body}
   );
@@ -214,7 +232,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="partner">
+      <div ref={partner} className="partner">
         <img src={numcloudLogo} alt="logo de numcloud" />
         <img src={ceramicLogo} alt="logo de ceramic" />
         <img src={HILogo} alt="logo de house innovation" />
