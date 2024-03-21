@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -31,6 +32,8 @@ export default function Home() {
   const imgPrincipale = useRef(null);
   const textToDown = useRef(null);
   const aboutSection = useRef(null);
+  const projectsSection = useRef(null);
+  const contactSection = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,33 +49,43 @@ export default function Home() {
   const x1 = useTransform(scrollYProgress, [0, 1], [0, 350]);
   const x2 = useTransform(scrollYProgress, [0, 1], [0, -350]);
 
-  //animation de la page avec Gsap
-  useGSAP(
-    () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      gsap.to(aboutSection.current, {
+  //enregistrement de l'animation sur les sections
+  gsap.registerEffect({
+    name: "sectionAnimation",
+    effect: (target, config) => {
+      return gsap.to(target, {
         duration: 1,
         opacity: 1,
         y: 0,
         ease: "power4.out",
         scrollTrigger: {
-          trigger: "#about",
-          start: "top bottom",
+          trigger: target,
+          start: "top 80%",
           toggleActions: "play none none reset",
-          onEnter: () => {
-            gsap.from(".about p", {
-              opacity: 0,
-              stagger: 0.1,
-              duration: 1,
-              delay: 0.1,
-              ease: "expo.out",
-            });
-          },
-        },
+          onEnter: config.onEnter,
+        }
       });
     },
-    { scope: document.body }
+  });
+
+  //animation de la page avec Gsap
+  useGSAP(
+    () => {
+      gsap.effects.sectionAnimation(aboutSection.current, {
+        onEnter: () => {
+          gsap.from(".about p", {
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1,
+            delay: 0.1,
+            ease: "expo.out",
+          });
+        },
+      });
+      gsap.effects.sectionAnimation(projectsSection.current);
+      gsap.effects.sectionAnimation(contactSection.current);
+    },
+    { scope: document.body}
   );
 
   return (
@@ -129,7 +142,7 @@ export default function Home() {
       <section
         ref={skills}
         id="skills"
-        className=" rounded-lg my-8 text-xs sm:text-base overflow-hidden flex flex-col"
+        className="rounded-lg my-8 text-xs sm:text-base overflow-hidden flex flex-col"
       >
         <motion.ul
           style={{ x: x1 }}
@@ -188,8 +201,9 @@ export default function Home() {
       </section>
 
       <section
+        ref={projectsSection}
         id="projects"
-        className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7"
+        className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7 opacity-0 translate-y-32"
       >
         <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
         <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
@@ -208,8 +222,9 @@ export default function Home() {
       </div>
 
       <section
+        ref={contactSection}
         id="contact"
-        className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3"
+        className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3 opacity-0 translate-y-32"
       >
         <div className="w-full sm:w-1/2 shrink-0  grow p-5 sm:p-8 sm:pe-0">
           <h2 className="font-oxygen text-3xl font-bold ">Get in touch</h2>
