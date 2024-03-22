@@ -4,6 +4,7 @@ import Menu from "./Components/Menu";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 function App() {
   const menuBtn = useRef(null);
@@ -30,6 +31,18 @@ function App() {
             ease: "power3.out",
             duration: 0.2,
           });
+          gsap.to(".stick:first-child",{
+            keyframes: [
+              {x: 5},
+              {x: 0},
+            ]
+          })
+          gsap.to(".stick:last-child",{
+            keyframes: [
+              {x: -5},
+              {x: 0},
+            ]
+          })
         },
         onEnterBack: () => {
           gsap.to(menuBtn.current, {
@@ -45,6 +58,10 @@ function App() {
     });
   });
 
+  useGSAP(() => {
+    
+  },{scope: menuBtn.current})
+
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">
@@ -53,7 +70,7 @@ function App() {
           className="menuBtn scale-0 visible elt overflow-hidden"
           onClick={showMenu}
         >
-          <span className="hoverElt bg-red-500"></span>
+          <span className="hoverElt bg-orange-600"></span>
           <div className="stickContainer">
             <span className="stick translate-y-[2px] active"></span>
             <span className="stick translate-y-[-2px] active"></span>

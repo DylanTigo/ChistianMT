@@ -19,7 +19,7 @@
     @apply text-placeholder text-sm;
   }
   .input:focus-within {
-    @apply border-b-orange border-b-2;
+    @apply border-b-orange-600 border-b-2;
   }
   section {
     @apply my-8;
@@ -92,6 +92,12 @@
   .menuBtn.active {
     @apply bg-white transition-colors;
   }
+  .menuBtn:hover .stick {
+    --tw-rotate: 6deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+  }
   .menuBtn.active .stick.active:first-child {
     @apply rotate-45 translate-y-0 bg-black;
   }
@@ -110,4 +116,14 @@
   .fullBgBlack.active {
     @apply opacity-70 visible;
   }
+}
+.menuBtn.active .stick.active:first-child {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+.menuBtn.active .stick.active:last-child {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }

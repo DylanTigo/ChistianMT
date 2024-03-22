@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -12,7 +13,6 @@ export default {
       colors: {
         black: "#0D0D0D",
         white: "#FFFFFF",
-        orange: "#D95F11",
         grey: "#F1F1F1",
         placeholder: "#0d0d0db3",
       },
