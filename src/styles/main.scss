@@ -53,7 +53,10 @@
     @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square;
   }
   .icon img {
-    @apply w-4;
+    @apply w-4 transition-transform;
+  }
+  .icon:hover {
+    @apply scale-110;
   }
   #contact .icon {
     @apply w-7 h-7 p-1;

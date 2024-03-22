@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Components/Header";
 import Menu from "./Components/Menu";
-import { useLayoutEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -17,7 +17,7 @@ function App() {
     menuContainer.current.classList.toggle("active");
   }
 
-  useLayoutEffect(() => {
+  useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(menuBtn.current, {
       scrollTrigger: {
@@ -32,16 +32,18 @@ function App() {
             duration: 0.2,
           });
           gsap.to(".stick:first-child",{
-            keyframes: [
-              {x: 5},
-              {x: 0},
-            ]
+            duration: .4,
+            ease: "power3.out",
+            x: 6,
+            repeat:1,
+            yoyo: true,
           })
           gsap.to(".stick:last-child",{
-            keyframes: [
-              {x: -5},
-              {x: 0},
-            ]
+            duration: .2,
+            ease: "power3.out",
+            x: -6,
+            repeat:1,
+            yoyo: true,
           })
         },
         onEnterBack: () => {
@@ -58,10 +60,9 @@ function App() {
     });
   });
 
-  useGSAP(() => {
-    
-  },{scope: menuBtn.current})
+  const [navigueur, setNavigueur] = useState()
 
+  console.log(navigueur);
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">
@@ -77,10 +78,10 @@ function App() {
           </div>
         </button>
         <div className="fullBgBlack" onClick={showMenu} ref={bgBlack}></div>
-        <Menu refMenuContainer={menuContainer} />
+        <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur}/>
       </div>
-      <Header />
-      <Outlet />
+      <Header setNavigueur={setNavigueur}/>
+      <Outlet context={navigueur}/>
     </>
   );
 }

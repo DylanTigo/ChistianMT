@@ -12,7 +12,7 @@ export default function Button({ children, type }) {
   if (type === "secondary") {
     return (
       <button className="btn bg-white text-black relative elt" type="button">
-        <span className="hoverElt bg-gray-400">{children}</span>
+        <span className="hoverElt bg-gray-300">{children}</span>
         {children}
       </button>
     );

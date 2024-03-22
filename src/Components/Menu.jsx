@@ -1,24 +1,29 @@
 /* eslint-disable react/prop-types */
 import SocialMedial from "./SocialMedial";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-export default function Menu({ refMenuContainer }) {
+export default function Menu({ refMenuContainer, setNavigueur }) {
+  function handleClick(e) {
+    e.preventDefault()
+    const hrefValue = e.currentTarget.getAttribute("href")
+    setNavigueur(hrefValue)
+  }
   return (
     <>
       <div className="menu visible" ref={refMenuContainer}>
         <nav className="flex justify-center items-start flex-col md:gap-5 font-bold text-xl mt-16 ">
-          <Link to={"/"} className="link">
+          <a href="#" onClick={handleClick} className="link">
             Home
-          </Link>
-          <Link to={"/#about"} className="link">
+          </a>
+          <a href="#about" onClick={handleClick} className="link">
             About
-          </Link>
-          <Link to={"/#projects"} className="link">
+          </a>
+          <a href="#projects" onClick={handleClick} className="link">
             Projects
-          </Link>
-          <Link to={"/#contact"} className="link">
+          </a>
+          <a href="#contact" onClick={handleClick} className="link">
             Contact
-          </Link>
+          </a>
         </nav>
         <SocialMedial className={"mt-10 visible"} />
       </div>

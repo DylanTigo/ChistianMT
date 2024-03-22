@@ -8,21 +8,21 @@ import github from "../assets/icons/github.svg";
 export default function SocialMedial({className}) {
   return (
     <div className={`flex w-fit ${className} justify-center items-center gap-2` }>
-      <div className="icon">
+      <a href="#" target="_blank" className="icon">
         <img src={whatsapp} alt="logo whatsapp" />
-      </div>
-      <div className="icon">
+      </a>
+      <a href="#" target="_blank" className="icon">
         <img src={twitter} alt="logo twitter" />
-      </div>
-      <div className="icon">
+      </a>
+      <a href="#" target="_blank" className="icon">
         <img src={insta} alt="logo insta" />
-      </div>
-      <div className="icon">
+      </a>
+      <a href="#" target="_blank" className="icon">
         <img src={linkdin} alt="logo linkdin" />
-      </div>
-      <div className="icon">
+      </a>
+      <a href="#" target="_blank" className="icon">
         <img src={github} alt="logo github" />
-      </div>
+      </a>
     </div>
   );
 }

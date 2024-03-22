@@ -60,7 +60,7 @@ export default function Home() {
         ease: "power4.out",
         scrollTrigger: {
           trigger: target,
-          start: "top 80%",
+          start: "top 90%",
           toggleActions: "play none none reset",
           onEnter: config.onEnter,
         },
@@ -121,7 +121,7 @@ export default function Home() {
   return (
     <main>
       <section
-        id="home"
+        id="accueil"
         className="flex flex-col-reverse sm:flex-row gap-4 mt-0"
         ref={home}
       >
