@@ -12,7 +12,7 @@ export default function Menu({ refMenuContainer, setNavigueur }) {
     <>
       <div className="menu visible" ref={refMenuContainer}>
         <nav className="flex justify-center items-start flex-col md:gap-5 font-bold text-xl mt-16 ">
-          <a href="#" onClick={handleClick} className="link">
+          <a href="#home" onClick={handleClick} className="link">
             Home
           </a>
           <a href="#about" onClick={handleClick} className="link">

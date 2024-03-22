@@ -16,7 +16,7 @@ export default function Header({ setNavigueur }) {
         <span className="w-4 h-4 rounded-full bg-orange-600"></span>M.T.
       </div>
       <nav className="flex justify-center items-center md:gap-2 font-bold text-xs sm:text-sm">
-        <a href="#" onClick={handleClick} className="link px-3 py-1 ">
+        <a href="#home" onClick={handleClick} className="link px-3 py-1 ">
           Home
         </a>
         <a href="#about" onClick={handleClick} className="link px-2 py-1">

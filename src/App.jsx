@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Components/Header";
 import Menu from "./Components/Menu";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
 function App() {
   const menuBtn = useRef(null);
@@ -31,20 +32,20 @@ function App() {
             ease: "power3.out",
             duration: 0.2,
           });
-          gsap.to(".stick:first-child",{
-            duration: .4,
+          gsap.to(".stick:first-child", {
+            duration: 0.4,
             ease: "power3.out",
             x: 6,
-            repeat:1,
+            repeat: 1,
             yoyo: true,
-          })
-          gsap.to(".stick:last-child",{
-            duration: .2,
+          });
+          gsap.to(".stick:last-child", {
+            duration: 0.2,
             ease: "power3.out",
             x: -6,
-            repeat:1,
+            repeat: 1,
             yoyo: true,
-          })
+          });
         },
         onEnterBack: () => {
           gsap.to(menuBtn.current, {
@@ -60,9 +61,11 @@ function App() {
     });
   });
 
-  const [navigueur, setNavigueur] = useState()
-
-  console.log(navigueur);
+  const [navigueur, setNavigueur] = useState();
+  useEffect(() => {
+    gsap.registerPlugin(ScrollToPlugin)
+    gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
+  }, [navigueur]);
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">
@@ -78,10 +81,10 @@ function App() {
           </div>
         </button>
         <div className="fullBgBlack" onClick={showMenu} ref={bgBlack}></div>
-        <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur}/>
+        <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur} />
       </div>
-      <Header setNavigueur={setNavigueur}/>
-      <Outlet context={navigueur}/>
+      <Header setNavigueur={setNavigueur} />
+      <Outlet />
     </>
   );
 }
