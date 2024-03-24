@@ -5,17 +5,33 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 function App() {
   const menuBtn = useRef(null);
   const bgBlack = useRef(null);
   const menuContainer = useRef(null);
 
+  const menuTimeline = gsap.timeline({paused: true});
+  useGSAP(() => {
+    menuTimeline.to(".menu .link", {
+      onStart: () => console.log("bonjour"),
+      delay: 0.2,
+      autoAlpha: 1,
+      stagger: .1, 
+      y: 0
+    }).to(".menu .icon", {
+      stagger: .1,
+      keyframes: [{scale: 1.1}, {scale: 1}]
+    }, "-=.5");
+  }, {scope: menuContainer.current})
+
   function showMenu() {
     menuBtn.current.classList.toggle("active");
     bgBlack.current.classList.toggle("active");
     menuContainer.current.classList.toggle("active");
+    menuTimeline.play();
+    
   }
 
   useGSAP(() => {
@@ -63,9 +79,10 @@ function App() {
 
   const [navigueur, setNavigueur] = useState();
   useEffect(() => {
-    gsap.registerPlugin(ScrollToPlugin)
+    gsap.registerPlugin(ScrollToPlugin);
     gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
   }, [navigueur]);
+
 
   return (
     <>

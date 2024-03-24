@@ -10,6 +10,7 @@ import numcloudLogo from "../assets/LogoEnterprise/numcloud.png";
 import profilPhoto from "../assets/secondMTphoto.png";
 
 import stackList from "../Utilities/iconTab";
+import { disableScroll, enableScroll } from "../Utilities/scroll";
 import Skill from "../Components/Skill";
 import Project from "../Components/Project";
 import { useRef, useState } from "react";
@@ -119,6 +120,9 @@ export default function Home() {
   useGSAP(() => {
     window.addEventListener("load", () => {
       const decalage = window.innerWidth > 640 ? 200 : 100;
+      disableScroll()
+      setTimeout(enableScroll, 3000)
+      
       timeline
         .from(".item1", {
           duration: 2.5,
@@ -141,8 +145,9 @@ export default function Home() {
         .to(
           ".welcome",
           {
-            y: 0,
-          }, "-=1"
+          y: 0,
+          },
+          "-=1"
         )
         .from(".item1", {
           keyframes: [{ x: 10, ease: "power2.in" }],
@@ -166,7 +171,7 @@ export default function Home() {
         )
         .to(".blockContainer", {
           rotate: 70,
-          duration: .2
+          duration: 0.2,
         })
         .to(".item1", {
           x: -5,
@@ -182,7 +187,8 @@ export default function Home() {
         )
         .to(loaderContainer.current, {
           autoAlpha: 0,
-        }).add(tl, "-=5");
+        })
+        .add(tl, "-=5");
     });
   });
 
@@ -190,27 +196,47 @@ export default function Home() {
   useGSAP(
     () => {
       tl.to("h1", {
-        delay: .7,
+        delay: 0.7,
         autoAlpha: 1,
         y: 0,
-      }).to("#accueil p", {
-        delay: .2,
-        autoAlpha: 1,
-        y: 0,
-      }, "-=.5").to("#accueil .btn", {
-        delay: .2,
-        autoAlpha: 1,
-        stagger: .1,
-        y: 0,
-      }, "-=.5").to(imgPrincipale.current, {
-        delay: .5,
-        opacity: 1,
-        duration: .5,
-        ease: "power1.out"
-      }, "0").to("#accueil .icon", {
-        stagger: .1,
-        keyframes: [{scale: 1.1}, {scale: 1}]
-      }, "<");
+      })
+        .to(
+          "#accueil p",
+          {
+            delay: 0.2,
+            autoAlpha: 1,
+            y: 0,
+          },
+          "-=.5"
+        )
+        .to(
+          "#accueil .btn",
+          {
+            delay: 0.2,
+            autoAlpha: 1,
+            stagger: 0.1,
+            y: 0,
+          },
+          "-=.5"
+        )
+        .to(
+          imgPrincipale.current,
+          {
+            delay: 0.5,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power1.out",
+          },
+          "0"
+        )
+        .to(
+          "#accueil .icon",
+          {
+            stagger: 0.1,
+            keyframes: [{ scale: 1.1 }, { scale: 1 }],
+          },
+          "<"
+        );
     },
     { scope: home.current }
   );
@@ -219,7 +245,7 @@ export default function Home() {
     <>
       <div
         ref={loaderContainer}
-        className="w-lvw h-lvh absolute top-0 left-0 bg-black flex justify-center items-center z-30"
+        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30"
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
