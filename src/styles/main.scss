@@ -40,17 +40,23 @@
   .elt:hover .hoverElt {
     @apply -translate-x-1/2 -translate-y-1/2;
   }
+  .anime{
+    @apply translate-y-10 opacity-0 invisible
+  }
 }
 
 @layer components {
   .btn {
     @apply py-3 px-8 rounded-full font-inter text-center text-lg sm:text-base text-nowrap sm:min-w-44  w-fit overflow-hidden font-medium;
   }
+  #accueil .btn{
+    @apply translate-y-10 opacity-0 invisible
+  }
   #contact .btn{
     @apply w-[90%] block mx-auto
   }
   .icon {
-    @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square;
+    @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square scale-0;
   }
   .icon img {
     @apply w-4 transition-transform;

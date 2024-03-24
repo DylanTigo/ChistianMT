@@ -114,9 +114,10 @@ export default function Home() {
     { scope: document.body }
   );
 
+  const timeline = gsap.timeline();
+
   useGSAP(() => {
     window.addEventListener("load", () => {
-      const timeline = gsap.timeline();
       const decalage = window.innerWidth > 640 ? 200 : 100;
       timeline
         .from(".item1", {
@@ -141,9 +142,7 @@ export default function Home() {
           ".welcome",
           {
             y: 0,
-            delay: 0.3,
-          },
-          "1"
+          }, "-=1"
         )
         .from(".item1", {
           keyframes: [{ x: 10, ease: "power2.in" }],
@@ -166,28 +165,55 @@ export default function Home() {
           "<"
         )
         .to(".blockContainer", {
-          rotate: 410,
+          rotate: 70,
+          duration: .2
         })
         .to(".item1", {
-          x: -10,
+          x: -5,
           duration: 0.3,
         })
         .to(
           ".item2",
           {
-            x: 10,
+            x: 5,
             duration: 0.3,
           },
-          "-=.1"
+          "<"
         )
         .to(loaderContainer.current, {
           autoAlpha: 0,
-          onComplete: () => {
-            console.log(document.body.classList.remove("overflow-hidden"));
-          },
-        });
+        }).add(tl, "-=5");
     });
   });
+
+  const tl = gsap.timeline();
+  useGSAP(
+    () => {
+      tl.to("h1", {
+        delay: .7,
+        autoAlpha: 1,
+        y: 0,
+      }).to("#accueil p", {
+        delay: .2,
+        autoAlpha: 1,
+        y: 0,
+      }, "-=.5").to("#accueil .btn", {
+        delay: .2,
+        autoAlpha: 1,
+        stagger: .1,
+        y: 0,
+      }, "-=.5").to(imgPrincipale.current, {
+        delay: .5,
+        opacity: 1,
+        duration: .5,
+        ease: "power1.out"
+      }, "0").to("#accueil .icon", {
+        stagger: .1,
+        keyframes: [{scale: 1.1}, {scale: 1}]
+      }, "<");
+    },
+    { scope: home.current }
+  );
 
   return (
     <>
@@ -201,7 +227,7 @@ export default function Home() {
               WELCOME
             </p>
           </div>
-          <div className=" blockContainer w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  h-full">
+          <div className="blockContainer w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  h-full">
             <span className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-8 sm:w-12 h-8 sm:h-12 rounded-full bg-orange-400 item item1"></span>
             <span className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-8 sm:w-12 h-8 sm:h-12 rounded-full bg-white item item2"></span>
           </div>
@@ -215,10 +241,12 @@ export default function Home() {
         >
           <div className=" flex flex-col justify-between md:w-3/5 md:min-w-[540px] bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover px-7 py-12 sm:p-12 rounded-xl relative">
             <div className=" text-center sm:text-left">
-              <h1 className="font-oxygen text-3xl sm:text-4xl font-bold lg:max-w-[90%]">
-                Hello I’m Mael Toukap FullStack and Mobile Develloper
-              </h1>
-              <p className="w-9/10 sm:w-5/6 mt-8 max-w-[80%] mx-auto sm:mx-0">
+              <div className="overflow-hidden">
+                <h1 className="anime translate-y-6 overflow-hidden font-oxygen text-3xl sm:text-4xl font-bold lg:max-w-[90%]">
+                  Hello I’m Mael Toukap, FullStack and Mobile Develloper
+                </h1>
+              </div>
+              <p className="anime w-9/10 sm:w-5/6 mt-8 max-w-[80%] mx-auto sm:mx-0">
                 Lorem ipsum dolor sit amet consectetur. Purus tellus pretium
                 pulvinar in ullamcorper ornare enim. Mauris rutrum dolor ut.
               </p>
@@ -231,12 +259,12 @@ export default function Home() {
               <Button type="secondary">Download CV</Button>
             </div>
           </div>
-          <div className="w-full sm:w-2/5 rounded-xl overflow-hidden relative">
+          <div className="w-full sm:w-2/5 rounded-xl overflow-hidden relative bg-orange-500">
             <img
               ref={imgPrincipale}
               src={imagePrincipale}
               alt="photo de mael toukap"
-              className=" object-cover object-center h-full "
+              className=" object-cover object-center w-full h-full opacity-0"
             />
             <div className=" absolute top-6 right-6">
               <SocialMedial className="flex-col" />
@@ -325,7 +353,7 @@ export default function Home() {
           id="contact"
           className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3 opacity-0 translate-y-32"
         >
-          <div className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
+          <div className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
             <h2 className="font-oxygen text-3xl font-bold">Get in touch</h2>
             <p className=" mt-3 text-sm">
               We believe that the best ideas are born from collaboration. Let's
@@ -353,9 +381,9 @@ export default function Home() {
               <Button onClick={handleSubmit}>Send me a mail</Button>
             </form>
           </div>
-          <div className=" grow flex justify-center items-center gap-2 flex-col py-4 ">
+          <div className=" grow flex justify-center items-center gap-2 flex-col py-4 min-w-[50%]">
             <img
-              className="rounded-full w-1/2 aspect-square shrink-0"
+              className="rounded-full w-1/2 max-w-60 aspect-square shrink-0"
               src={imagePrincipale}
               alt="photo de mael toukap"
             />
