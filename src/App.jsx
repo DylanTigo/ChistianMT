@@ -66,6 +66,7 @@ function App() {
     gsap.registerPlugin(ScrollToPlugin)
     gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
   }, [navigueur]);
+
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">

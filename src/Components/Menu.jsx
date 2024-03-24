@@ -10,18 +10,18 @@ export default function Menu({ refMenuContainer, setNavigueur }) {
   }
   return (
     <>
-      <div className="menu visible" ref={refMenuContainer}>
-        <nav className="flex justify-center items-start flex-col md:gap-5 font-bold text-xl mt-16 ">
-          <a href="#home" onClick={handleClick} className="link">
+      <div className="menu" ref={refMenuContainer}>
+        <nav className="flex justify-center items-start flex-col font-bold text-xl mt-16 ">
+          <a href="#home" onClick={handleClick} className="link py-2">
             Home
           </a>
-          <a href="#about" onClick={handleClick} className="link">
+          <a href="#about" onClick={handleClick} className="link py-2">
             About
           </a>
-          <a href="#projects" onClick={handleClick} className="link">
+          <a href="#projects" onClick={handleClick} className="link py-2">
             Projects
           </a>
-          <a href="#contact" onClick={handleClick} className="link">
+          <a href="#contact" onClick={handleClick} className="link py-2">
             Contact
           </a>
         </nav>
