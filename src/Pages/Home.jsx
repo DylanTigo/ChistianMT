@@ -127,7 +127,6 @@ export default function Home() {
   useGSAP(() => {
     window.addEventListener("load", () => {
       const decalage = window.innerWidth > 640 ? 200 : 100;
-      gsap.set(loaderContainer.current, { autoAlpha: 1 });
       disableScroll()
       setTimeout(enableScroll, 3000)
 
@@ -194,6 +193,9 @@ export default function Home() {
         })
         .add(tl, "-=5");
     });
+    timeline.eventCallback("onComplete", ()=>{
+      loaderContainer.current.style.display = 'none';
+    })
   });
 
   //Animation de la page d'accueil aprés le loader
@@ -239,18 +241,18 @@ export default function Home() {
           {
             stagger: 0.1,
             keyframes: [{ scale: 1.1 }, { scale: 1 }],
-          },
+        },
           "<"
         );
     },
     { scope: home.current }
-  );
+    );
 
   return (
     <>
       <div
         ref={loaderContainer}
-        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 invisible"
+        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 "
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
