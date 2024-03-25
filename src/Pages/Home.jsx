@@ -65,7 +65,7 @@ export default function Home() {
     },
   });
 
-  //animation de la page avec Gsap
+  //animation des section et du flot géneral avec Gsap
   useGSAP(
     () => {
       //Animation de la section about
@@ -108,7 +108,13 @@ export default function Home() {
           trigger: contactSection.current,
           start: "-50% 80%",
           toggleActions: "play none none reset",
-          onEnter: () => {},
+          onEnter: () => {
+            gsap.to("#contact .icon", {
+              delay: .1,
+              stagger: { amount: .3, from: "center"},
+              keyframes: [{scale: 1.15}, {scale: 1}]
+            });
+          },
         },
       });
     },
@@ -117,12 +123,14 @@ export default function Home() {
 
   const timeline = gsap.timeline();
 
+  //Animation du loader
   useGSAP(() => {
     window.addEventListener("load", () => {
       const decalage = window.innerWidth > 640 ? 200 : 100;
+      gsap.set(loaderContainer.current, { autoAlpha: 1 });
       disableScroll()
       setTimeout(enableScroll, 3000)
-      
+
       timeline
         .from(".item1", {
           duration: 2.5,
@@ -169,10 +177,6 @@ export default function Home() {
           },
           "<"
         )
-        .to(".blockContainer", {
-          rotate: 70,
-          duration: 0.2,
-        })
         .to(".item1", {
           x: -5,
           duration: 0.3,
@@ -192,6 +196,7 @@ export default function Home() {
     });
   });
 
+  //Animation de la page d'accueil aprés le loader
   const tl = gsap.timeline();
   useGSAP(
     () => {
@@ -222,7 +227,7 @@ export default function Home() {
         .to(
           imgPrincipale.current,
           {
-            delay: 0.5,
+            delay: 1,
             opacity: 1,
             duration: 0.5,
             ease: "power1.out",
@@ -245,7 +250,7 @@ export default function Home() {
     <>
       <div
         ref={loaderContainer}
-        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30"
+        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 invisible"
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">

@@ -12,28 +12,15 @@ function App() {
   const bgBlack = useRef(null);
   const menuContainer = useRef(null);
 
-  const menuTimeline = gsap.timeline({paused: true});
-  useGSAP(() => {
-    menuTimeline.to(".menu .link", {
-      onStart: () => console.log("bonjour"),
-      delay: 0.2,
-      autoAlpha: 1,
-      stagger: .1, 
-      y: 0
-    }).to(".menu .icon", {
-      stagger: .1,
-      keyframes: [{scale: 1.1}, {scale: 1}]
-    }, "-=.5");
-  }, {scope: menuContainer.current})
-
   function showMenu() {
     menuBtn.current.classList.toggle("active");
     bgBlack.current.classList.toggle("active");
     menuContainer.current.classList.toggle("active");
     menuTimeline.play();
-    
+    menuTimeline.restart();
   }
 
+  //Animation de l'apparition du boutton Menu au scroll
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(menuBtn.current, {
@@ -77,11 +64,25 @@ function App() {
     });
   });
 
+  //Navigation  partir des liens
   const [navigueur, setNavigueur] = useState();
   useEffect(() => {
     gsap.registerPlugin(ScrollToPlugin);
     gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
   }, [navigueur]);
+
+  const menuTimeline = gsap.timeline({paused: true});
+  useGSAP(() => {
+    menuTimeline.to(".menu .link", {
+      delay: 0.1,
+      autoAlpha: 1,
+      stagger: { amount: .3}, 
+      y: 0
+    },"-=.5").to(".menu .icon", {
+      stagger: { amount: .3, from: "random"},
+      keyframes: [{scale: 1.1}, {scale: 1}]
+    }, "-=.5");
+  }, {scope: menuContainer.current})
 
 
   return (
