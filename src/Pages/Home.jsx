@@ -2,22 +2,21 @@
 /* eslint-disable react/no-unescaped-entities */
 import Button from "../Components/Button";
 import SocialMedial from "../Components/SocialMedial";
-import imagePrincipale from "../assets/fristMTphoto.png";
 import ceramicLogo from "../assets/LogoEnterprise/ceramic.png";
 import HILogo from "../assets/LogoEnterprise/houseI.png";
 import mtnLogo from "../assets/LogoEnterprise/mtnCM.png";
 import numcloudLogo from "../assets/LogoEnterprise/numcloud.png";
+import imagePrincipale from "../assets/fristMTphoto.png";
 import profilPhoto from "../assets/secondMTphoto.png";
 
+import { useGSAP } from "@gsap/react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ScrollTrigger, gsap } from "gsap/all";
+import { useRef, useState } from "react";
+import Project from "../Components/Project";
+import Skill from "../Components/Skill";
 import stackList from "../Utilities/iconTab";
 import { disableScroll, enableScroll } from "../Utilities/scroll";
-import Skill from "../Components/Skill";
-import Project from "../Components/Project";
-import { useRef, useState } from "react";
-import { useScroll, useTransform } from "framer-motion";
-import { motion } from "framer-motion";
-import { gsap, ScrollTrigger } from "gsap/all";
-import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -43,8 +42,8 @@ export default function Home() {
     target: skills,
     offset: ["start end", "end start"],
   });
-  const x1 = useTransform(scrollYProgress, [0, 1], [0, 350]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [0, -350]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, 450]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [0, -450]);
 
   //enregistrement de l'animation sur les sections
   gsap.registerEffect({
@@ -69,6 +68,7 @@ export default function Home() {
   useGSAP(
     () => {
       //Animation de la section about
+      gsap.registerPlugin(ScrollTrigger);
       gsap.effects.sectionAnimation(aboutSection.current, {
         onEnter: () => {
           gsap.from(".about p", {
@@ -92,8 +92,6 @@ export default function Home() {
           gsap.from(".partner img", {
             y: 50,
             stagger: 0.1,
-            start: "top 80%",
-            toggleActions: "play none none reset",
           });
         },
       });
@@ -110,9 +108,9 @@ export default function Home() {
           toggleActions: "play none none reset",
           onEnter: () => {
             gsap.to("#contact .icon", {
-              delay: .1,
-              stagger: { amount: .3, from: "center"},
-              keyframes: [{scale: 1.15}, {scale: 1}]
+              delay: 0.1,
+              stagger: { amount: 0.3, from: "center" },
+              keyframes: [{ scale: 1.15 }, { scale: 1 }],
             });
           },
         },
@@ -127,11 +125,10 @@ export default function Home() {
   useGSAP(() => {
     window.addEventListener("load", () => {
       const decalage = window.innerWidth > 640 ? 200 : 100;
-      disableScroll()
-      setTimeout(enableScroll, 3000)
+      disableScroll();
+      setTimeout(enableScroll, 3000);
 
       timeline
-        .set(loaderContainer.current, {display: "flex"})
         .from(".item1", {
           duration: 2.5,
           keyframes: [
@@ -153,7 +150,7 @@ export default function Home() {
         .to(
           ".welcome",
           {
-          y: 0,
+            y: 0,
           },
           "-=1"
         )
@@ -194,9 +191,9 @@ export default function Home() {
         })
         .add(tl, "-=5");
     });
-    timeline.eventCallback("onComplete", ()=>{
-      loaderContainer.current.style.display = 'none';
-    })
+    // timeline.eventCallback("onComplete", ()=>{
+    //   loaderContainer.current.style.display = 'none';
+    // })
   });
 
   //Animation de la page d'accueil aprés le loader
@@ -242,18 +239,18 @@ export default function Home() {
           {
             stagger: 0.1,
             keyframes: [{ scale: 1.1 }, { scale: 1 }],
-        },
+          },
           "<"
         );
     },
     { scope: home.current }
-    );
+  );
 
   return (
     <>
       <div
         ref={loaderContainer}
-        className="w-lvw h-lvh fixed top-0 left-0 bg-black hidden justify-center items-center z-30 "
+        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 "
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
@@ -309,11 +306,11 @@ export default function Home() {
         <section
           ref={skills}
           id="skills"
-          className="rounded-lg my-8 text-xs sm:text-base overflow-hidden flex flex-col"
+          className="rounded-lg my-8 text-xs sm:text-base overflow-hidden flex flex-col relative"
         >
           <motion.ul
             style={{ x: x1 }}
-            className="flex gap-3 mr-3 w-max shrink-0 -translate-x-full listContainer1 self-end"
+            className="relative flex gap-3 mr-3 w-max shrink-0 listContainer1 self-end "
           >
             {stackList.map((skill, index) => (
               <Skill key={index} img={skill} />
@@ -321,7 +318,7 @@ export default function Home() {
           </motion.ul>
           <motion.ul
             style={{ x: x2 }}
-            className="flex gap-3 mr-3 w-max shrink-0 listContainer2 mt-3 justify-items-start"
+            className="relative flex gap-3 mr-3 w-max shrink-0 listContainer2 mt-3 self-start "
           >
             {stackList.map((skill, index) => (
               <Skill key={index} img={skill} />
