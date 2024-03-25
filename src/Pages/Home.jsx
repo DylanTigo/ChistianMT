@@ -131,6 +131,7 @@ export default function Home() {
       setTimeout(enableScroll, 3000)
 
       timeline
+        .set(loaderContainer.current, {display: "flex"})
         .from(".item1", {
           duration: 2.5,
           keyframes: [
@@ -252,7 +253,7 @@ export default function Home() {
     <>
       <div
         ref={loaderContainer}
-        className="w-lvw h-lvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 "
+        className="w-lvw h-lvh fixed top-0 left-0 bg-black hidden justify-center items-center z-30 "
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
