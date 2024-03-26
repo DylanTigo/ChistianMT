@@ -19,6 +19,17 @@ function App() {
     menuTimeline.play();
     menuTimeline.restart();
   }
+  useEffect(() => {
+    const burger = menuBtn.current;
+    const backgroundBlack = bgBlack.current;
+
+    burger.addEventListener("click", showMenu);
+    backgroundBlack.addEventListener("click", showMenu);
+    return () => {
+      burger.removeEventListener("click", showMenu);
+      backgroundBlack.removeEventListener("click", showMenu);
+    };
+  });
 
   //Animation de l'apparition du boutton Menu au scroll
   useGSAP(() => {
@@ -71,19 +82,31 @@ function App() {
     gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
   }, [navigueur]);
 
-  const menuTimeline = gsap.timeline({paused: true});
-  useGSAP(() => {
-    menuTimeline.to(".menu .link", {
-      delay: 0.1,
-      autoAlpha: 1,
-      stagger: { amount: .3}, 
-      y: 0
-    },"-=.5").to(".menu .icon", {
-      stagger: { amount: .3, from: "random"},
-      keyframes: [{scale: 1.1}, {scale: 1}]
-    }, "-=.5");
-  }, {scope: menuContainer.current})
-
+  const menuTimeline = gsap.timeline({ paused: true });
+  useGSAP(
+    () => {
+      menuTimeline
+        .to(
+          ".menu .link",
+          {
+            delay: 0.1,
+            autoAlpha: 1,
+            stagger: { amount: 0.3 },
+            y: 0,
+          },
+          "-=.5"
+        )
+        .to(
+          ".menu .icon",
+          {
+            stagger: { amount: 0.3, from: "random" },
+            keyframes: [{ scale: 1.1 }, { scale: 1 }],
+          },
+          "-=.5"
+        );
+    },
+    { scope: menuContainer.current }
+  );
 
   return (
     <>
@@ -91,7 +114,6 @@ function App() {
         <button
           ref={menuBtn}
           className="menuBtn scale-0 visible elt overflow-hidden"
-          onClick={showMenu}
         >
           <span className="hoverElt bg-orange-600"></span>
           <div className="stickContainer">
@@ -99,7 +121,7 @@ function App() {
             <span className="stick translate-y-[-2px] active"></span>
           </div>
         </button>
-        <div className="fullBgBlack" onClick={showMenu} ref={bgBlack}></div>
+        <div className="fullBgBlack" ref={bgBlack}></div>
         <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur} />
       </div>
       <Header setNavigueur={setNavigueur} />

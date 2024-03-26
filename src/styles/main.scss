@@ -62,7 +62,7 @@
     @apply w-4 transition-transform;
   }
   .icon:hover {
-    @apply scale-110;
+    transform: scale(1.1) !important;
   }
   #contact .icon {
     @apply w-7 h-7 p-1;
@@ -120,7 +120,7 @@
     @apply w-full h-[1px] bg-white absolute left-1/2 -translate-x-1/2 transition;
   }
   .fullBgBlack {
-    @apply w-[200vw] h-svh fixed top-0 -left-full z-10 bg-black opacity-0 invisible transition;
+    @apply w-[200vw] h-dvh fixed top-0 -left-full z-10 bg-black opacity-0 invisible transition;
   }
   .fullBgBlack.active {
     @apply opacity-70 visible;

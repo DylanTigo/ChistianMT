@@ -254,6 +254,7 @@ export default function Home() {
       function handleLoad() {
         disableScroll();
         loaderContainer.current.classList.remove("opacity-0")
+        loaderContainer.current.classList.remove("invisible")
         setTimeout(enableScroll, 3000);
         timelineLoader.play();
         timelineLoader.add(timelineHome, "-=1.6");
@@ -269,7 +270,7 @@ export default function Home() {
     <>
       <div
         ref={loaderContainer}
-        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20 opacity-0"
+        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20 opacity-0 invisible"
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
