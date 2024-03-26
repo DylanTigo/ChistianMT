@@ -119,16 +119,12 @@ export default function Home() {
     { scope: document.body }
   );
 
-  const timeline = gsap.timeline();
-
   //Animation du loader
-  useGSAP(() => {
-    window.addEventListener("load", () => {
+  const timelineLoader = gsap.timeline({ paused: true });
+  useGSAP(
+    () => {
       const decalage = window.innerWidth > 640 ? 200 : 100;
-      disableScroll();
-      setTimeout(enableScroll, 3000);
-
-      timeline
+      timelineLoader
         .from(".item1", {
           duration: 2.5,
           keyframes: [
@@ -188,23 +184,24 @@ export default function Home() {
         )
         .to(loaderContainer.current, {
           autoAlpha: 0,
-        })
-        .add(tl, "-=5");
-    });
-    // timeline.eventCallback("onComplete", ()=>{
-    //   loaderContainer.current.style.display = 'none';
-    // })
-  });
+          onStart: () => setAnimeHome(true)
+        }, "<");
+    },
+    { scope: loaderContainer.current }
+  );
 
   //Animation de la page d'accueil aprés le loader
-  const tl = gsap.timeline();
+  const [animeHome, setAnimeHome] = useState(false);
+  const timelineHome = gsap.timeline({ paused: true });
+
   useGSAP(
     () => {
-      tl.to("h1", {
-        delay: 0.7,
-        autoAlpha: 1,
-        y: 0,
-      })
+      timelineHome
+        .to("h1", {
+          delay: 0.7,
+          autoAlpha: 1,
+          y: 0,
+        })
         .to(
           "#accueil p",
           {
@@ -242,15 +239,37 @@ export default function Home() {
           },
           "<"
         );
+        if(animeHome){
+          timelineHome.play()
+        }
+        timelineHome.play()
     },
-    { scope: home.current }
+    {dependencies: [animeHome], scope: home.current}
+  );
+
+  // const [animeLoader, setAnimeLoader] = useState(false);
+
+  const { contextSafe } = useGSAP(
+    () => {
+      function handleLoad() {
+        disableScroll();
+        loaderContainer.current.classList.remove("opacity-0")
+        setTimeout(enableScroll, 3000);
+        timelineLoader.play();
+        timelineLoader.add(timelineHome, "-=1.6");
+        console.log("done");
+      }
+      // contextSafe(window.addEventListener( "loadstart", loaderContainer.current.classList.remove("opacity-0")))
+      contextSafe(window.addEventListener("load", handleLoad));
+    },
+    { scope: document.body, dependencies: []}
   );
 
   return (
     <>
       <div
         ref={loaderContainer}
-        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-30 "
+        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20 opacity-0"
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
