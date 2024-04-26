@@ -12,11 +12,13 @@ import profilPhoto from "../assets/secondMTphoto.png";
 import { useGSAP } from "@gsap/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ScrollTrigger, gsap } from "gsap/all";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Project from "../Components/Project";
 import Skill from "../Components/Skill";
 import stackList from "../Utilities/iconTab";
 import { disableScroll, enableScroll } from "../Utilities/scroll";
+import useAnimeLoader from "../Hooks/useAnimeLoader";
+import { useLoaderContext } from "../Hooks/LoaderContext";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -33,7 +35,6 @@ export default function Home() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    window.location.href = `mailto: dylannoeltigomo@gmail.com?subject=Hire for work&`;
   }
 
   //Animation de la section skils avec FramerMotion
@@ -119,158 +120,40 @@ export default function Home() {
     { scope: document.body }
   );
 
-  //Animation du loader
-  const timelineLoader = gsap.timeline({ paused: true });
-  useGSAP(
-    () => {
-      const decalage = window.innerWidth > 640 ? 200 : 100;
-      timelineLoader
-        .from(".item1", {
-          duration: 2.5,
-          keyframes: [
-            { x: 0, ease: "power2.in" },
-            { x: `${decalage}px + 1vw`, ease: "power4.out" },
-          ],
-        })
-        .from(
-          ".item2",
-          {
-            duration: 2.5,
-            keyframes: [
-              { x: 0, ease: "power2.in" },
-              { x: `-${decalage}px - 1vw`, ease: "power4.out" },
-            ],
-          },
-          "<"
-        )
-        .to(
-          ".welcome",
-          {
-            y: 0,
-          },
-          "-=1"
-        )
-        .from(".item1", {
-          keyframes: [{ x: 10, ease: "power2.in" }],
-        })
-        .from(
-          ".item2",
-          {
-            keyframes: [{ x: -10, ease: "power2.in" }],
-          },
-          "<"
-        )
-        .to(
-          ".welcome",
-          {
-            y: "-100%",
-            opacity: 0,
-            duration: 0.2,
-            delay: 0.3,
-          },
-          "<"
-        )
-        .to(".item1", {
-          x: -5,
-          duration: 0.3,
-        })
-        .to(
-          ".item2",
-          {
-            x: 5,
-            duration: 0.3,
-          },
-          "<"
-        )
-        .to(loaderContainer.current, {
-          autoAlpha: 0,
-          onStart: () => setAnimeHome(true)
-        }, "<");
-    },
-    { scope: loaderContainer.current }
-  );
+  const { timelineHome, timelineLoader } = useAnimeLoader(home, loaderContainer);
+  const {onceLoaded, setOnceLoaded} = useLoaderContext()
 
-  //Animation de la page d'accueil aprés le loader
-  const [animeHome, setAnimeHome] = useState(false);
-  const timelineHome = gsap.timeline({ paused: true });
+  useEffect(() => {
+    if (onceLoaded) {
+      timelineHome.play()
+    }
+  },[])
 
   useGSAP(
-    () => {
-      timelineHome
-        .to("h1", {
-          delay: 0.7,
-          autoAlpha: 1,
-          y: 0,
-        })
-        .to(
-          "#accueil p",
-          {
-            delay: 0.2,
-            autoAlpha: 1,
-            y: 0,
-          },
-          "-=.5"
-        )
-        .to(
-          "#accueil .btn",
-          {
-            delay: 0.2,
-            autoAlpha: 1,
-            stagger: 0.1,
-            y: 0,
-          },
-          "-=.5"
-        )
-        .to(
-          imgPrincipale.current,
-          {
-            delay: 1,
-            opacity: 1,
-            duration: 0.5,
-            ease: "power1.out",
-          },
-          "0"
-        )
-        .to(
-          "#accueil .icon",
-          {
-            stagger: 0.1,
-            keyframes: [{ scale: 1.1 }, { scale: 1 }],
-          },
-          "<"
-        );
-        if(animeHome){
-          timelineHome.play()
-        }
-        timelineHome.play()
-    },
-    {dependencies: [animeHome], scope: home.current}
-  );
-
-  // const [animeLoader, setAnimeLoader] = useState(false);
-
-  const { contextSafe } = useGSAP(
     () => {
       function handleLoad() {
-        disableScroll();
-        loaderContainer.current.classList.remove("opacity-0")
-        loaderContainer.current.classList.remove("invisible")
-        setTimeout(enableScroll, 3000);
-        timelineLoader.play();
-        timelineLoader.add(timelineHome, "-=1.6");
-        console.log("done");
+        if (!onceLoaded) {
+          disableScroll();
+          setTimeout(enableScroll, 3000);
+          timelineLoader.current.play().then(() => {
+            loaderContainer.current.classList.add("invisible")
+            loaderContainer.current.classList.add("opacity-0")
+            timelineHome.current.play()
+            setOnceLoaded(true)
+          })
+        }
       }
-      // contextSafe(window.addEventListener( "loadstart", loaderContainer.current.classList.remove("opacity-0")))
-      contextSafe(window.addEventListener("load", handleLoad));
+
+      handleLoad();
     },
-    { scope: document.body, dependencies: []}
+    { scope: document.body }
   );
 
   return (
     <>
       <div
         ref={loaderContainer}
-        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20 opacity-0 invisible"
+        className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20"
       >
         <div className="relative w-fit">
           <div className="text-white overflow-hidden h-fit w-fit font-bold">
@@ -315,7 +198,7 @@ export default function Home() {
               ref={imgPrincipale}
               src={imagePrincipale}
               alt="photo de mael toukap"
-              className=" object-cover object-center w-full h-full opacity-0"
+              className="imgPrincipale object-cover object-center w-full h-full opacity-0"
             />
             <div className=" absolute top-6 right-6">
               <SocialMedial className="flex-col" />
@@ -359,17 +242,17 @@ export default function Home() {
               alt="photo de mael toukap"
             />
             <div className="about grow mx-auto w-100 max-w-none sm:max-h-60 overflow-y-auto">
-              <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
+              <p className=" lg:max-w-xl mx-auto">
                 From a young age, I’ve always had a sense of motivation and
                 passion driving me forward.
               </p>
-              <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
+              <p className=" lg:max-w-xl mx-auto">
                 Whether it’s exploring unique opportunities, learning additional
                 skills, or meeting new people, I bring these values to every
                 experience throughout my life on a personal and professional
                 level.
               </p>
-              <p className=" lg:max-w-xl mx-auto indent-7 sm:indent-10">
+              <p className=" lg:max-w-xl mx-auto">
                 Lover of innovation and everything related to generate new
                 knowledge. Face problems with a smile and solve them as soon as
                 possible. Very calculated about the time I spend and work I do.
@@ -415,7 +298,7 @@ export default function Home() {
                 type="text"
                 name="name"
                 value={name}
-                onChange={setName}
+                onChange={(e) => setName(e.value)}
                 className="input"
                 id="name"
                 placeholder="Name"
@@ -424,7 +307,7 @@ export default function Home() {
                 type="email"
                 name="email"
                 value={email}
-                onChange={setEmail}
+                onChange={(e) => setEmail(e.value)}
                 className="input mb-8 mt-2"
                 id="email"
                 placeholder="Email"

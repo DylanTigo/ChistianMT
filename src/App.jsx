@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { LoaderProvider } from "./Hooks/LoaderContext";
 
 function App() {
   const menuBtn = useRef(null);
@@ -125,7 +126,9 @@ function App() {
         <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur} />
       </div>
       <Header setNavigueur={setNavigueur} />
-      <Outlet />
+      <LoaderProvider>
+        <Outlet />
+      </LoaderProvider>
     </>
   );
 }
