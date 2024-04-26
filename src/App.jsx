@@ -12,14 +12,56 @@ function App() {
   const menuBtn = useRef(null);
   const bgBlack = useRef(null);
   const menuContainer = useRef(null);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   function showMenu() {
-    menuBtn.current.classList.toggle("active");
-    bgBlack.current.classList.toggle("active");
-    menuContainer.current.classList.toggle("active");
-    menuTimeline.play();
-    menuTimeline.restart();
+    if (!menuIsOpen) {
+      menuTimeline.current.add(tl.current, "-=25%")
+      menuTimeline.current.play();
+      setMenuIsOpen(!menuIsOpen);
+    } else {
+      menuTimeline.current.reverse();
+      setMenuIsOpen(!menuIsOpen);
+    }
   }
+
+  const tl = useRef();
+  useGSAP(() => {
+    tl.current = gsap.timeline({ paused: true })
+    tl.current.to(
+      ".menu .icon",
+      {
+        stagger: { amount: 0.3, from: "random" },
+        keyframes: [{ scale: 1.1 }, { scale: 1 }],
+      },
+      "-=.5"
+    );
+  })
+
+  const menuTimeline = useRef();
+  useGSAP(
+    () => {
+      menuTimeline.current = gsap.timeline({ paused: true });
+      menuTimeline.current
+        .add(() => {
+          menuBtn.current.classList.toggle("active");
+          bgBlack.current.classList.toggle("active");
+          menuContainer.current.classList.toggle("active");
+        })
+        .to(
+          ".menu .link",
+          {
+            delay: 0.3,
+            autoAlpha: 1,
+            stagger: { amount: 0.5 },
+            y: 0,
+          },
+          "-=.5"
+        )
+    },
+    { scope: menuContainer.current }
+  );
+
   useEffect(() => {
     const burger = menuBtn.current;
     const backgroundBlack = bgBlack.current;
@@ -82,32 +124,6 @@ function App() {
     gsap.registerPlugin(ScrollToPlugin);
     gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
   }, [navigueur]);
-
-  const menuTimeline = gsap.timeline({ paused: true });
-  useGSAP(
-    () => {
-      menuTimeline
-        .to(
-          ".menu .link",
-          {
-            delay: 0.1,
-            autoAlpha: 1,
-            stagger: { amount: 0.3 },
-            y: 0,
-          },
-          "-=.5"
-        )
-        .to(
-          ".menu .icon",
-          {
-            stagger: { amount: 0.3, from: "random" },
-            keyframes: [{ scale: 1.1 }, { scale: 1 }],
-          },
-          "-=.5"
-        );
-    },
-    { scope: menuContainer.current }
-  );
 
   return (
     <>
