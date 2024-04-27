@@ -14,7 +14,7 @@ export default function Menu({ refMenuContainer, setNavigueur }) {
   }
   return (
     <>
-      <div className="menu" ref={refMenuContainer}>
+      <div className="menu min-w-72" ref={refMenuContainer}>
         <nav className="flex justify-center items-start flex-col font-bold text-xl mt-16 ">
           <a href="#home" onClick={handleClick} className="link anime py-2">
             Home

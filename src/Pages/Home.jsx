@@ -125,7 +125,9 @@ export default function Home() {
 
   useEffect(() => {
     if (onceLoaded) {
-      timelineHome.play()
+      loaderContainer.current.classList.add("invisible")
+      loaderContainer.current.classList.add("opacity-0")
+      timelineHome.current.play()
     }
   },[])
 
