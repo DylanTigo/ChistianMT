@@ -2,8 +2,8 @@
 export default function Skill({ img, small }) {
   if (small) {
     return (
-      <li className="px-6 sm:px-10 py-1 sm:py-2 bg-grey rounded-lg inline-block shrink-0">
-        <img src={img} alt={`logo de ${img}`} className="h-5 sm:h-6 w-auto" />
+      <li className="px-1 sm:px-2 py-1 sm:py-2 rounded-lg inline-block shrink-0">
+        <img src={img} alt={`logo de ${img}`} className="h-6 sm:h-6 w-auto" />
       </li>
     );
   }
