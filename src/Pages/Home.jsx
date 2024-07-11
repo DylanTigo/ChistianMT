@@ -25,6 +25,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [body, setBody] = useState("");
   const home = useRef(null);
   const btnContainer = useRef(null);
   const imgPrincipale = useRef(null);
@@ -36,6 +37,8 @@ export default function Home() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const mailContent = {name, email, body}
+    console.log(mailContent);
   }
 
   //Animation de la section skils avec FramerMotion
@@ -121,16 +124,19 @@ export default function Home() {
     { scope: document.body }
   );
 
-  const { timelineHome, timelineLoader } = useAnimeLoader(home, loaderContainer);
-  const {onceLoaded, setOnceLoaded} = useLoaderContext()
+  const { timelineHome, timelineLoader } = useAnimeLoader(
+    home,
+    loaderContainer
+  );
+  const { onceLoaded, setOnceLoaded } = useLoaderContext();
 
   useEffect(() => {
     if (onceLoaded) {
-      loaderContainer.current.classList.add("invisible")
-      loaderContainer.current.classList.add("opacity-0")
-      timelineHome.current.play()
+      loaderContainer.current.classList.add("invisible");
+      loaderContainer.current.classList.add("opacity-0");
+      timelineHome.current.play();
     }
-  },[])
+  }, []);
 
   useGSAP(
     () => {
@@ -139,11 +145,11 @@ export default function Home() {
           disableScroll();
           setTimeout(enableScroll, 3000);
           timelineLoader.current.play().then(() => {
-            loaderContainer.current.classList.add("invisible")
-            loaderContainer.current.classList.add("opacity-0")
-            timelineHome.current.play()
-            setOnceLoaded(true)
-          })
+            loaderContainer.current.classList.add("invisible");
+            loaderContainer.current.classList.add("opacity-0");
+            timelineHome.current.play();
+            setOnceLoaded(true);
+          });
         }
       }
 
@@ -271,7 +277,9 @@ export default function Home() {
         >
           <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
           <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
-            {projects.map((project) => <Project key={project.id} project={project}/>)}
+            {projects.map((project) => (
+              <Project key={project.id} project={project} />
+            ))}
           </div>
         </section>
 
@@ -287,7 +295,7 @@ export default function Home() {
           id="contact"
           className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3 opacity-0 translate-y-32"
         >
-          <div className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
+          <form  onSubmit={handleSubmit} className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
             <h2 className="font-oxygen text-3xl font-bold">Get in touch</h2>
             <p className=" mt-3 text-sm">
               We believe that the best ideas are born from collaboration. Let's
@@ -308,13 +316,21 @@ export default function Home() {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.value)}
-                className="input mb-8 mt-2"
+                className="input mt-2"
                 id="email"
                 placeholder="Email"
               />
-              <Button onClick={handleSubmit}>Send me a mail</Button>
+              <textarea
+                name="content"
+                placeholder="Mail content"
+                className="input mb-8 mt-2"
+                rows={6}
+                value={body}
+                onChange={(e) => setBody(e.value)}
+              ></textarea>
+              <Button>Send me a mail</Button>
             </form>
-          </div>
+          </form>
           <div className=" grow flex justify-center items-center gap-2 flex-col py-4 min-w-[50%]">
             <img
               className="rounded-full w-1/2 max-w-60 aspect-square shrink-0"

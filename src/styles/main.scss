@@ -15,7 +15,7 @@
   body {
     @apply px-3 md:px-8 font-inter max-w-[1200px] mx-auto;
   }
-  input::placeholder {
+  .input::placeholder {
     @apply text-placeholder text-sm;
   }
   .input:focus-within {
