@@ -19,6 +19,7 @@ import stackList from "../Utilities/iconTab";
 import { disableScroll, enableScroll } from "../Utilities/scroll";
 import useAnimeLoader from "../Hooks/useAnimeLoader";
 import { useLoaderContext } from "../Hooks/LoaderContext";
+import { projects } from "../Datas/projects";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -270,10 +271,7 @@ export default function Home() {
         >
           <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
           <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
-            <Project />
-            <Project />
-            <Project />
-            <Project />
+            {projects.map((project) => <Project key={project.id} project={project}/>)}
           </div>
         </section>
 
