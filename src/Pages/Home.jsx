@@ -342,8 +342,8 @@ export default function Home() {
                 placeholder="Email"
               />
               <textarea
-                name="content"
-                placeholder="Mail content"
+                name="message"
+                placeholder="Enter your message"
                 className="input mb-8 mt-2"
                 rows={6}
                 value={message}
