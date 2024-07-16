@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
-export default function Button({ children, type }) {
+export default function Button({ children, type, submit}) {
   if (!type || type === "primary") {
     return (
-      <button className="btn bg-black text-white relative elt" type="button">
+      <button type={submit ? "submit" : "button"} className="btn bg-black text-white relative elt">
         <span className="hoverElt bg-orange-600">{children}</span>
         {children}
       </button>
@@ -11,7 +11,7 @@ export default function Button({ children, type }) {
   }
   if (type === "secondary") {
     return (
-      <button className="btn bg-white text-black relative elt" type="button">
+      <button type={submit ? "submit" : "button"} className="btn bg-white text-black relative elt">
         <span className="hoverElt bg-gray-300">{children}</span>
         {children}
       </button>

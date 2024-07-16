@@ -20,12 +20,13 @@ import { disableScroll, enableScroll } from "../Utilities/scroll";
 import useAnimeLoader from "../Hooks/useAnimeLoader";
 import { useLoaderContext } from "../Hooks/LoaderContext";
 import { projects } from "../Datas/projects";
+import axios from "axios";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [body, setBody] = useState("");
+  const [message, setMessage] = useState("");
   const home = useRef(null);
   const btnContainer = useRef(null);
   const imgPrincipale = useRef(null);
@@ -35,11 +36,31 @@ export default function Home() {
   const partner = useRef(null);
   const loaderContainer = useRef(null);
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const mailContent = {name, email, body}
-    console.log(mailContent);
-  }
+    // console.log(name, email, message);
+
+    // validate email
+    if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+
+    try {
+        const response = await axios.post('https://back.maeltoukap.me/api/mail/send', {
+            name,
+            email,
+            message
+        });
+
+        if (response.status === 200) {
+            alert('Email sent successfully');
+        }
+    } catch (error) {
+        console.error('Error sending email:', error);
+        alert('Error sending email');
+    }
+};
 
   //Animation de la section skils avec FramerMotion
   const skills = useRef(null);
@@ -198,7 +219,7 @@ export default function Home() {
               ref={btnContainer}
               className="btnContainer flex justify-center sm:justify-start gap-2 mr-2 mt-10"
             >
-              <Button type="primary">Contact me</Button>
+              <Button type="primary"><a href="#contact">Contact me</a></Button>
               <Button type="secondary">Download CV</Button>
             </div>
           </div>
@@ -295,18 +316,18 @@ export default function Home() {
           id="contact"
           className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3 opacity-0 translate-y-32"
         >
-          <form  onSubmit={handleSubmit} className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
+          <form  onSubmit={(e) => handleSubmit(e)} className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
             <h2 className="font-oxygen text-3xl font-bold">Get in touch</h2>
             <p className=" mt-3 text-sm">
               We believe that the best ideas are born from collaboration. Let's
               make magic together!
             </p>
-            <form action="" className="mt-6">
+            <div className="mt-6">
               <input
                 type="text"
                 name="name"
                 value={name}
-                onChange={(e) => setName(e.value)}
+                onChange={(e) => setName(e.target.value)}
                 className="input"
                 id="name"
                 placeholder="Name"
@@ -315,7 +336,7 @@ export default function Home() {
                 type="email"
                 name="email"
                 value={email}
-                onChange={(e) => setEmail(e.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 className="input mt-2"
                 id="email"
                 placeholder="Email"
@@ -325,11 +346,11 @@ export default function Home() {
                 placeholder="Mail content"
                 className="input mb-8 mt-2"
                 rows={6}
-                value={body}
-                onChange={(e) => setBody(e.value)}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               ></textarea>
-              <Button>Send me a mail</Button>
-            </form>
+              <Button submit={true}>Send me a mail</Button>
+            </div>
           </form>
           <div className=" grow flex justify-center items-center gap-2 flex-col py-4 min-w-[50%]">
             <img
