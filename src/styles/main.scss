@@ -43,6 +43,12 @@
   .anime{
     @apply translate-y-10 opacity-0 invisible
   }
+  .error{
+    @apply text-red-800 bg-red-100 translate-y-3
+  }
+  .success{
+    @apply text-green-800 bg-green-100 translate-y-3
+  }
 }
 
 @layer components {

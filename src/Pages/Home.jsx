@@ -27,6 +27,8 @@ export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [erros, setErrors] = useState({});
+  const [alertMessage, setAlertMessage] = useState("Yo");
   const home = useRef(null);
   const btnContainer = useRef(null);
   const imgPrincipale = useRef(null);
@@ -35,32 +37,75 @@ export default function Home() {
   const contactSection = useRef(null);
   const partner = useRef(null);
   const loaderContainer = useRef(null);
+  const toast = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(name, email, message);
+    let newErrors = {};
+    let valid = true;
+    if (!name) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    if (!email) {
+      newErrors.email = "Email is required";
+      valid = false;
+    }
 
     // validate email
     if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        alert('Please enter a valid email address');
-        return;
+      newErrors.email = "Please enter a valid email address";
+      valid = false;
     }
 
+    console.log(newErrors);
+    if (valid) {
+      setErrors({});
+      await sendEmail();
+    } else {
+      setErrors(newErrors);
+    }
+  };
+
+  const sendEmail = async () => {
     try {
-        const response = await axios.post('https://back.maeltoukap.me/api/mail/send', {
-            name,
-            email,
-            message
-        });
-
-        if (response.status === 200) {
-            alert('Email sent successfully');
+      const response = await axios.post(
+        "https://back.maeltoukap.me/api/mail/send",
+        {
+          name,
+          email,
+          message,
         }
+      );
+
+      if (response.status === 201) {
+        setAlertMessage(
+          "Email sent successfully ✅, We will reply you as soon as possible"
+        );
+        showToast("success");
+        setErrors({});
+        setName("");
+        setEmail("");
+        setMessage("");
+      }
     } catch (error) {
-        console.error('Error sending email:', error);
-        alert('Error sending email');
+      console.error("Error sending email:", error);
+      setAlertMessage("Error sending email, try again later ❌");
+      showToast("error");
     }
-};
+  };
+
+  function showToast(state) {
+    toast.current.classList.remove("opacity-0");
+    toast.current.classList.remove("invisible");
+    toast.current.classList.add(state);
+    setTimeout(() => {
+      toast.current.classList.add("opacity-0");
+      toast.current.classList.add("invisible");
+      toast.current.classList.remove(state);
+    }, 3000);
+  }
 
   //Animation de la section skils avec FramerMotion
   const skills = useRef(null);
@@ -182,6 +227,12 @@ export default function Home() {
   return (
     <>
       <div
+        ref={toast}
+        className="text-center fixed px-8 py-5 max-w-sm shadow-md rounded-lg pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 z-10 opacity-0 invisible transition"
+      >
+        {alertMessage}
+      </div>
+      <div
         ref={loaderContainer}
         className="w-dvw h-dvh fixed top-0 left-0 bg-black flex justify-center items-center z-20"
       >
@@ -219,7 +270,9 @@ export default function Home() {
               ref={btnContainer}
               className="btnContainer flex justify-center sm:justify-start gap-2 mr-2 mt-10"
             >
-              <Button type="primary"><a href="#contact">Contact me</a></Button>
+              <Button type="primary">
+                <a href="#contact">Contact me</a>
+              </Button>
               <Button type="secondary">Download CV</Button>
             </div>
           </div>
@@ -316,7 +369,10 @@ export default function Home() {
           id="contact"
           className="bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover rounded-xl my-8 flex justify-center flex-col sm:flex-row p-3 opacity-0 translate-y-32"
         >
-          <form  onSubmit={(e) => handleSubmit(e)} className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left">
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="w-full max-w-none xm:max-w-96 mx-auto sm:w-1/2 min-w-[50%] shrink-0 grow p-5 sm:p-8 sm:pe-0 text-center sm:text-left"
+          >
             <h2 className="font-oxygen text-3xl font-bold">Get in touch</h2>
             <p className=" mt-3 text-sm">
               We believe that the best ideas are born from collaboration. Let's
@@ -332,6 +388,8 @@ export default function Home() {
                 id="name"
                 placeholder="Name"
               />
+              <p className="text-red-500 text-xs mt-[2px]">{erros.name}</p>
+
               <input
                 type="email"
                 name="email"
@@ -341,6 +399,8 @@ export default function Home() {
                 id="email"
                 placeholder="Email"
               />
+              <p className="text-red-500 text-xs mt-[2px]">{erros.name}</p>
+
               <textarea
                 name="message"
                 placeholder="Enter your message"
