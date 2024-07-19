@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useNavigueur } from "../Hooks/useNavigueur";
 import SocialMedial from "./SocialMedial";
 
-export default function Menu({ refMenuContainer, setNavigueur }) {
-
-  // const [isOpen, setIsOpen] =  useState(false)
-
-  function handleClick(e) {
-    e.preventDefault()
-    const hrefValue = e.currentTarget.getAttribute("href")
-    setNavigueur(hrefValue)
-  }
+export default function Menu({ refMenuContainer }) {
+  
+  const {handleClick} = useNavigueur()
   return (
     <>
       <div className="menu min-w-72" ref={refMenuContainer}>

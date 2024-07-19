@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { LoaderProvider } from "./Hooks/LoaderContext";
 
 function App() {
@@ -118,13 +117,6 @@ function App() {
     });
   });
 
-  //Navigation  partir des liens
-  const [navigueur, setNavigueur] = useState();
-  useEffect(() => {
-    gsap.registerPlugin(ScrollToPlugin);
-    gsap.to(window, { duration: 1, scrollTo: { y: navigueur, offsetY: 70 } });
-  }, [navigueur]);
-
   return (
     <>
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1200px] z-10 invisible">
@@ -139,9 +131,9 @@ function App() {
           </div>
         </button>
         <div className="fullBgBlack" ref={bgBlack}></div>
-        <Menu refMenuContainer={menuContainer} setNavigueur={setNavigueur} />
+        <Menu refMenuContainer={menuContainer} />
       </div>
-      <Header setNavigueur={setNavigueur} />
+      <Header/>
       <LoaderProvider>
         <Outlet />
       </LoaderProvider>

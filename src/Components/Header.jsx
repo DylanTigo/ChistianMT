@@ -1,12 +1,8 @@
-/* eslint-disable react/prop-types */
-// import { Link } from "react-router-dom";
+import { useNavigueur } from "../Hooks/useNavigueur";
 
-export default function Header({ setNavigueur }) {
-  function handleClick(e) {
-    e.preventDefault()
-    const hrefValue = e.currentTarget.getAttribute("href")
-    setNavigueur(hrefValue)
-  }
+
+export default function Header() {
+  const { handleClick }  = useNavigueur()
   return (
     <header
       className="flex items-center justify-between px-2 sm:px-5
