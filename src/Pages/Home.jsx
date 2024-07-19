@@ -40,6 +40,7 @@ export default function Home() {
   const loaderContainer = useRef(null);
   const toast = useRef(null);
 
+  // Soumition du formulaire avec validation du mail
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
@@ -71,10 +72,11 @@ export default function Home() {
     }
   };
 
+  //Envoie du mail apres verification
   const sendEmail = async () => {
     try {
       const response = await axios.post(
-        "https://back.maeltoukap.me/api/mail/sen",
+        "https://back.maeltoukap.me/api/mail/send",
         {
           name,
           email,
@@ -99,7 +101,8 @@ export default function Home() {
     }
     setSending(false);
   };
-
+  
+  // Affichage du toast en fonction du statut de la reponse
   function showToast(state) {
     toast.current.classList.remove("opacity-0");
     toast.current.classList.remove("invisible");
@@ -120,7 +123,7 @@ export default function Home() {
   const x1 = useTransform(scrollYProgress, [0, 1], [0, 450]);
   const x2 = useTransform(scrollYProgress, [0, 1], [0, -450]);
 
-  //enregistrement de l'animation sur les sections
+  //Enregistrement de l'animation sur les sections
   gsap.registerEffect({
     name: "sectionAnimation",
     effect: (target, config) => {

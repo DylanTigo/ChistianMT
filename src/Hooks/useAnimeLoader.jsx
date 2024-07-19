@@ -5,6 +5,7 @@ import gsap from "gsap"
 
 export default function useAnimeLoader({home, loaderContainer}) {
 
+  //TimeLine pour l'animation du Lodaer
   const timelineLoader = useRef(null)
 
   useGSAP(
@@ -73,6 +74,7 @@ export default function useAnimeLoader({home, loaderContainer}) {
     { scope: loaderContainer }
   );
 
+  //TimeLine pour l'animation de l'accueil
   const timelineHome = useRef(null)
   useGSAP(
     () => {
