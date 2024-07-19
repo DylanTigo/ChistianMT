@@ -7,7 +7,7 @@ export const projects = [
     stacks: [techStack[1], techStack[4], techStack[3]],
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas. Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "/src/assets/Project-image/project1.png",
+    image: "/assets/ProjectImage/project1.png",
     link: "#"
   },
   {
@@ -16,7 +16,7 @@ export const projects = [
     stacks: [techStack[7], techStack[2], techStack[5]],
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas. Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "/src/assets/Project-image/project1.png",
+    image: "/assets/ProjectImage/project1.png",
     link: "#"
   },
   {
@@ -25,7 +25,7 @@ export const projects = [
     stacks: [techStack[2], techStack[4], techStack[8]],
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas. Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "/src/assets/Project-image/project1.png",
+    image: "/assets/ProjectImage/project1.png",
     link: "#"
   },
   {
@@ -34,7 +34,7 @@ export const projects = [
     stacks: [techStack[8], techStack[7], techStack[5]],
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident suscipit perferendis minima quam assumenda dicta odio blanditiis eius dolorum quas. Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "/src/assets/Project-image/project1.png",
+    image: "/assets/ProjectImage/project1.png",
     link: "#"
   },
 ];

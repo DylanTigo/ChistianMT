@@ -59,7 +59,7 @@
     @apply translate-y-10 opacity-0 invisible
   }
   #contact .btn{
-    @apply w-[90%] block mx-auto
+    @apply mx-auto
   }
   .icon {
     @apply w-9 h-9 p-2 flex items-center justify-center bg-white rounded-full aspect-square scale-0;

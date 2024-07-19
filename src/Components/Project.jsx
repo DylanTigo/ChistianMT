@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-// import project1 from "../assets/Project-image/project1.png";
+
 import icon from "../assets/icons/downIcon.svg";
 // import { createPortal } from "react-dom";
 

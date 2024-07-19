@@ -28,6 +28,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [erros, setErrors] = useState({});
+  const [sending, setSending] = useState(false);
   const [alertMessage, setAlertMessage] = useState("Yo");
   const home = useRef(null);
   const btnContainer = useRef(null);
@@ -43,13 +44,10 @@ export default function Home() {
     e.preventDefault();
     let newErrors = {};
     let valid = true;
-    if (!name) {
-      newErrors.name = "Name is required";
-      valid = false;
-    }
+    setSending(valid)
 
-    if (!email) {
-      newErrors.email = "Email is required";
+    if (name.length < 3) {
+      newErrors.name = "Name must be at least 3 characters long";
       valid = false;
     }
 
@@ -59,19 +57,24 @@ export default function Home() {
       valid = false;
     }
 
-    console.log(newErrors);
+    if (message.length < 10) {
+      newErrors.message = "Message must be at least 10 characters long";
+      valid = false;
+    }
+
     if (valid) {
       setErrors({});
       await sendEmail();
     } else {
       setErrors(newErrors);
+      setSending(false);
     }
   };
 
   const sendEmail = async () => {
     try {
       const response = await axios.post(
-        "https://back.maeltoukap.me/api/mail/send",
+        "https://back.maeltoukap.me/api/mail/sen",
         {
           name,
           email,
@@ -94,6 +97,7 @@ export default function Home() {
       setAlertMessage("Error sending email, try again later ❌");
       showToast("error");
     }
+    setSending(false);
   };
 
   function showToast(state) {
@@ -228,9 +232,9 @@ export default function Home() {
     <>
       <div
         ref={toast}
-        className="text-center fixed px-8 py-5 max-w-sm shadow-md rounded-lg pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 z-10 opacity-0 invisible transition"
+        className="text-sm text-center bg-red-100 fixed p-5 max-w-80 w-4/5 shadow-md rounded-md pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-0 invisible z-50 transition"
       >
-        {alertMessage}
+        <p className="">{alertMessage}</p>
       </div>
       <div
         ref={loaderContainer}
@@ -388,7 +392,9 @@ export default function Home() {
                 id="name"
                 placeholder="Name"
               />
-              <p className="text-red-500 text-xs mt-[2px]">{erros.name}</p>
+              <p className="text-red-500 text-xs text-left mt-1">
+                {erros.name}
+              </p>
 
               <input
                 type="email"
@@ -399,17 +405,50 @@ export default function Home() {
                 id="email"
                 placeholder="Email"
               />
-              <p className="text-red-500 text-xs mt-[2px]">{erros.name}</p>
+              <p className="text-red-500 text-xs text-left mt-1">
+                {erros.email}
+              </p>
 
-              <textarea
-                name="message"
-                placeholder="Enter your message"
-                className="input mb-8 mt-2"
-                rows={6}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
-              <Button submit={true}>Send me a mail</Button>
+              <div className="mt-2 mb-8">
+                <textarea
+                  name="message"
+                  placeholder="Enter your message"
+                  className="input"
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+                <p className="text-red-500 text-xs text-left mt-1">
+                  {erros.message}
+                </p>
+              </div>
+
+              <Button submit={true}>
+                {sending ? 
+                <><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-loader animate-spin"
+              >
+                <path d="M12 2v4" />
+                <path d="m16.2 7.8 2.9-2.9" />
+                <path d="M18 12h4" />
+                <path d="m16.2 16.2 2.9 2.9" />
+                <path d="M12 18v4" />
+                <path d="m4.9 19.1 2.9-2.9" />
+                <path d="M2 12h4" />
+                <path d="m4.9 4.9 2.9 2.9" />
+              </svg>
+              <p className="text-grey-300">Sending...</p>
+                </> : "Send me a mail"}
+              </Button>
             </div>
           </form>
           <div className=" grow flex justify-center items-center gap-2 flex-col py-4 min-w-[50%]">

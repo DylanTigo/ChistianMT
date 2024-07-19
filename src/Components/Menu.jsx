@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-// import { useState } from "react";
 import SocialMedial from "./SocialMedial";
-// import { Link } from "react-router-dom";
 
 export default function Menu({ refMenuContainer, setNavigueur }) {
 
