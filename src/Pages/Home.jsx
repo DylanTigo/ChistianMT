@@ -258,7 +258,7 @@ export default function Home() {
       <main>
         <section
           id="accueil"
-          className="flex flex-col-reverse sm:flex-row gap-4 mt-0 max-h-[90vh]"
+          className="flex flex-col sm:flex-row gap-4 mt-0 max-h-[90vh]"
           ref={home}
         >
           <div className=" flex flex-col justify-between md:w-3/5 md:min-w-[540px] bg-[url('../assets/background.jpg')] bg-no-repeat bg-cover px-7 py-12 sm:p-12 rounded-xl relative">
@@ -354,7 +354,7 @@ export default function Home() {
         <section
           ref={projectsSection}
           id="projects"
-          className="bg-grey rounded-lg px-2 py-3 sm:px-5 sm:py-7 opacity-0 translate-y-32"
+          className="bg-grey rounded-lg px-2 py-7 sm:px-5 opacity-0 translate-y-32"
         >
           <h2 className="title mb-2 ml-0 sm:ml-12">Projects</h2>
           <div className="flex flex-wrap justify-center gap-3 px-2 sm:px-5">
