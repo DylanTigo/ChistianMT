@@ -232,7 +232,7 @@ export default function Home() {
     <>
       <div
         ref={toast}
-        className="text-sm text-center bg-red-100 fixed p-5 max-w-80 w-4/5 shadow-md rounded-md pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-0 invisible z-50 transition"
+        className="text-sm text-center fixed p-5 max-w-80 w-4/5 shadow-md rounded-md pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-0 invisible z-50 transition"
       >
         <p className="">{alertMessage}</p>
       </div>
