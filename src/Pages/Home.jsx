@@ -235,7 +235,7 @@ export default function Home() {
     <>
       <div
         ref={toast}
-        className="text-sm text-center fixed p-5 max-w-80 w-4/5 shadow-md rounded-md pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-0 invisible z-50 transition"
+        className="text-sm text-center fixed p-5 max-w-80 w-4/5 shadow-lg rounded-md pointer-events-none top-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-0 invisible z-50 transition"
       >
         <p className="">{alertMessage}</p>
       </div>
@@ -325,13 +325,13 @@ export default function Home() {
           className="bg-grey rounded-xl p-7 sm:p-11 opacity-0 translate-y-32"
         >
           <h2 className="title sm:ml-6">About me</h2>
-          <div className="flex justify-center items-center w-full gap-8 sm:gap-12 w-100 flex-col sm:flex-row">
+          <div className="flex justify-center max-sm:items-center w-full gap-8 sm:gap-12 flex-col sm:flex-row">
             <img
-              className="rounded-full w-60 aspect-square min-w-52"
+              className="rounded-full w-60 aspect-square min-w-44 h-fit"
               src={profilPhoto}
               alt="photo de mael toukap"
             />
-            <div className="about grow mx-auto w-100 max-w-none sm:max-h-60 overflow-y-auto">
+            <div className="about grow mx-auto max-w-none overflow-y-auto">
               <p className=" lg:max-w-xl mx-auto">
                 From a young age, I’ve always had a sense of motivation and
                 passion driving me forward.
@@ -404,7 +404,7 @@ export default function Home() {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="input mt-2"
+                className="input mt-3"
                 id="email"
                 placeholder="Email"
               />
@@ -412,7 +412,7 @@ export default function Home() {
                 {erros.email}
               </p>
 
-              <div className="mt-2 mb-8">
+              <div className="mt-3 mb-8">
                 <textarea
                   name="message"
                   placeholder="Enter your message"
@@ -450,7 +450,7 @@ export default function Home() {
                 <path d="m4.9 4.9 2.9 2.9" />
               </svg>
               <p className="text-grey-300">Sending...</p>
-                </> : "Send me a mail"}
+                </> : "Send the mail"}
               </Button>
             </div>
           </form>

@@ -44,10 +44,10 @@
     @apply translate-y-10 opacity-0 invisible
   }
   .error{
-    @apply text-red-800 bg-red-100 translate-y-3
+    @apply text-red-800 bg-red-50 translate-y-3
   }
   .success{
-    @apply text-green-800 bg-green-100 translate-y-3
+    @apply text-green-800 bg-green-50 translate-y-3
   }
 }
 
@@ -83,7 +83,7 @@
     @apply font-bold font-inter text-xl text-center sm:text-start mb-3;
   }
   .input {
-    @apply border-b border-black w-full bg-transparent py-1 px-1 outline-none;
+    @apply border-b border-black w-full bg-transparent p-2 outline-none;
   }
 
   .menu {
